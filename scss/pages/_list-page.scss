@@ -1,0 +1,16 @@
+.list-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include mq(400) {
+    flex-wrap: wrap;
+  }
+}
+
+.list-buttons-container > button {
+  margin: 2rem;
+  @include mq(400) {
+    width: 15rem;
+    margin: 1rem;
+  }
+}

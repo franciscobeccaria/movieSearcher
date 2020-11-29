@@ -658,6 +658,21 @@ footer {
     .list-select > p {
       font-size: 1.25rem; } }
 
+.list-buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  @media screen and (max-width: 400px) {
+    .list-buttons-container {
+      flex-wrap: wrap; } }
+
+.list-buttons-container > button {
+  margin: 2rem; }
+  @media screen and (max-width: 400px) {
+    .list-buttons-container > button {
+      width: 15rem;
+      margin: 1rem; } }
+
 .big-button-only-info {
   height: 6rem;
   display: flex;
