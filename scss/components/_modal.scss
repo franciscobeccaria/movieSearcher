@@ -90,3 +90,58 @@
 .checkbox {
   margin-right: 2rem;
 }
+
+.little-modal {
+  width: 50%;
+  height: 45%;
+  background: $color-background;
+  border-radius: 15px;
+  border: 1px solid $color-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  @include mq(1024) {
+    width: 90%;
+  }
+}
+
+.little-modal-inside-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 80%;
+  height: 100%;
+}
+
+.little-modal-inside-container > * {
+  width: 100%;
+}
+
+.title-little-modal {
+  color: $color-white;
+  font-family: $roboto-family;
+  font-size: 4rem;
+  margin: 4rem 0 2rem 0;
+  @include mq(640) {
+    font-size: 3rem;
+  }
+  @include mq(400) {
+    font-size: 2rem;
+  }
+}
+
+.input-little-modal-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 4rem;
+}
+
+.btn-little-modal-container {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-little-modal-container > button {
+  width: 15rem;
+}
