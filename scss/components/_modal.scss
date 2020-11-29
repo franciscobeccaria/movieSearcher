@@ -21,6 +21,9 @@
   background: $color-background;
   border-radius: 15px;
   border: 1px solid $color-white;
+  @include mq(1024) {
+    width: 90%;
+  }
 }
 
 .modal-searcher-container {
@@ -70,6 +73,14 @@
   font-size: 2rem;
   font-weight: 700;
   overflow: auto;
+  @include mq(640) {
+    font-size: 1.5rem;
+    padding: 2rem 4rem 1rem 4rem;
+  }
+  @include mq(400) {
+    font-size: 1.5rem;
+    padding: 2rem 2rem 1rem 2rem;
+  }
 }
 
 .modal-list-results > * {

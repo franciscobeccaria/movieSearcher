@@ -506,6 +506,9 @@ footer {
   background: #0a1016;
   border-radius: 15px;
   border: 1px solid #f0f0f0; }
+  @media screen and (max-width: 1024px) {
+    .big-modal {
+      width: 90%; } }
 
 .modal-searcher-container {
   width: 100%;
@@ -551,6 +554,14 @@ footer {
   font-size: 2rem;
   font-weight: 700;
   overflow: auto; }
+  @media screen and (max-width: 640px) {
+    .modal-list-results {
+      font-size: 1.5rem;
+      padding: 2rem 4rem 1rem 4rem; } }
+  @media screen and (max-width: 400px) {
+    .modal-list-results {
+      font-size: 1.5rem;
+      padding: 2rem 2rem 1rem 2rem; } }
 
 .modal-list-results > * {
   margin-bottom: 2rem; }
