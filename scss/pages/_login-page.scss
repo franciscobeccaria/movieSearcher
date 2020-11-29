@@ -1,0 +1,151 @@
+.login-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 20rem;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50rem;
+  @include mq(640) {
+    width: 90%;
+  }
+}
+
+.login-container > * {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8rem;
+  @include mq(640) {
+    height: auto;
+  }
+}
+
+.login-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-title {
+  color: $color-white;
+  font-family: $roboto-family;
+  font-size: 4rem;
+  margin: 4rem 0 2rem 0;
+  @include mq(400) {
+    font-size: 3rem;
+  }
+}
+
+.login-inputs-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.login-name-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0 1rem 0;
+  width: 100%;
+}
+
+.login-container > * {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+.forgot-container {
+  padding-left: 1rem;
+  padding-bottom: 3rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  @include mq(640) {
+    padding-bottom: 2rem;
+  }
+}
+
+.forgot {
+  color: $color-white;
+  font-family: $roboto-family;
+  font-size: 2rem;
+  text-decoration: underline;
+  cursor: pointer;
+  @include mq(640) {
+    font-size: 1.5rem;
+  }
+  @include mq(400) {
+    font-size: 1.25rem;
+  }
+}
+
+.login-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  @include mq(640) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.login-buttons-container > button {
+  width: 20rem;
+  @include mq(640) {
+    margin: 1rem;
+  }
+}
+
+.login-info-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+.login-social-title-container {
+  color: $color-white;
+  font-family: $roboto-family;
+  font-size: 2rem;
+  padding: 2rem;
+  @include mq(640) {
+    font-size: 1.75rem;
+    text-align: center;
+  }
+}
+
+.login-social-container {
+  display: flex;
+}
+
+.social-container {
+  width: 7.5rem;
+  height: 7.5rem;
+  margin: 1.5rem;
+  @include mq(640) {
+    width: 5.5rem;
+    height: 5.5rem;
+    margin: 1.25rem;
+  }
+  @include mq(400) {
+    width: 4.5rem;
+    height: 4.5rem;
+    margin: 1rem;
+  }
+}
+
+.social-icon {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
