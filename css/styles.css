@@ -894,3 +894,11 @@ h4 {
 .justify-flex-start {
   justify-content: flex-start;
   padding-left: 5rem; }
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+.padding-10 {
+  padding: 2rem; }
