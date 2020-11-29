@@ -1,0 +1,125 @@
+.movie-container {
+  padding: 5rem 10rem 5rem 10rem;
+  display: flex;
+  width: 100%;
+  @include mq(1024) {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+  }
+  @include mq(760) {
+    padding: 5rem 5rem 5rem 5rem;
+  }
+  @include mq(640) {
+    padding: 3rem 3rem 3rem 3rem;
+  }
+  @include mq(640) {
+    padding: 3rem 2rem 0rem 2rem;
+  }
+}
+
+.movie-poster-container {
+  //height: 45.4rem;
+  //width: 30rem;
+  //height: 45.4rem;
+  width: 30%;
+  @include mq(1024) {
+    height: 30rem;
+    width: 20rem;
+  }
+}
+
+.movie-poster {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.movie-info-container {
+  padding: 3rem;
+  width: 70%;
+  //display: none;
+  @include mq(1024) {
+    width: 100%;
+  }
+}
+
+.movie-title-container {
+  @include mq(1024) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.movie-title {
+  color: $color-white;
+  font-family: $roboto-family;
+  font-size: 5rem;
+  margin-bottom: 2rem;
+  @include mq(1024) {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+  }
+  @include mq(640) {
+    font-size: 3rem;
+  }
+}
+
+.movie-buttons-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  @include mq(1024) {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    & > .middle-button {
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+  }
+}
+
+.movie-data-container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.movie-data {
+  color: $color-white;
+  margin-right: 2rem;
+  font-size: 1.5rem;
+  font-family: $roboto-family;
+  @include mq(640) {
+    font-size: 1.25rem;
+  }
+}
+
+.movie-description-title {
+  width: 100%;
+  font-size: 2rem;
+  color: $color-white;
+  font-family: $roboto-family;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  @include mq(640) {
+    font-size: 1.5rem;
+  }
+}
+
+.movie-description-container {
+  width: 100%;
+  font-size: 1.5rem;
+  color: $color-white;
+  font-family: $roboto-family;
+  @include mq(640) {
+    font-size: 1.25rem;
+  }
+}

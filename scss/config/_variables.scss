@@ -6,9 +6,11 @@
 }
 
 // Color variables:
+$color-background: #0a1016;
+$second-background: #2c2c2c;
 $color-main: #c21c1c;
 $color-black: #000000;
-$color-white: wheat;
+$color-white: #f0f0f0;
 
 // Variables de apilamiento (z-index)
 :root {
@@ -34,4 +36,5 @@ $breakpoints: (
   400: 400px,
   640: 640px,
   760: 770px,
+  1024: 1024px,
 );

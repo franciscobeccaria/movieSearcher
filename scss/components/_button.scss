@@ -1,0 +1,103 @@
+// 75, 55, 40
+// 75 - Big
+// 55 - Middle
+// 40 - Little
+
+.big-button-only-info {
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-main;
+  border-radius: 15px;
+  outline: none;
+  border: 0px;
+  @include mq(640) {
+    height: 4rem;
+  }
+  /*   @include mq(400) {
+    font-size: 1.75rem;
+  } */
+}
+
+.big-button-only-info > p {
+  font-family: $racing-sans-one-family;
+  color: $color-black;
+  font-size: 2rem;
+  margin: 0 2rem 0 2rem;
+  @include mq(640) {
+    font-size: 2rem;
+  }
+  @include mq(400) {
+    font-size: 1.75rem;
+  }
+}
+
+.big-button {
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-main;
+  border-radius: 15px;
+  outline: none;
+  cursor: pointer;
+  border: 0px;
+  &:hover {
+    background-color: $color-white;
+  }
+  @include mq(640) {
+    height: 4rem;
+  }
+  /*   @include mq(400) {
+    font-size: 1.75rem;
+  } */
+}
+
+.big-button > p {
+  font-family: $racing-sans-one-family;
+  color: $color-black;
+  font-size: 2rem;
+  margin: 0 2rem 0 2rem;
+  @include mq(640) {
+    font-size: 2rem;
+  }
+  @include mq(400) {
+    font-size: 1.75rem;
+  }
+}
+
+.middle-button {
+  height: 4.5rem;
+  width: 30%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-main;
+  border-radius: 15px;
+  outline: none;
+  cursor: pointer;
+  border: 0px;
+  &:hover {
+    background-color: $color-white;
+  }
+  @include mq(640) {
+    height: 3rem;
+  }
+  /*   @include mq(400) {
+    font-size: 1.75rem;
+  } */
+}
+
+.middle-button > p {
+  font-family: $racing-sans-one-family;
+  color: $color-black;
+  font-size: 1.75rem;
+  margin: 0 2rem 0 2rem;
+  @include mq(640) {
+    font-size: 1.5rem;
+  }
+  @include mq(400) {
+    font-size: 1.25rem;
+  }
+}

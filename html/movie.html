@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <title>Movie | MovieSearcher</title>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a class="logo-link" href="#">
+                <h1 class="logo">MovieSearcher</h1>
+            </a>
+        </div>
+        <div class="navigation">
+            <div class="menu">
+                <img id="menu-icon" class="menu-icon" src="../img/icons/menu.png" alt="">
+            </div>
+            <ul id="item-container" class="item-container">
+                <li class="navigation-item hidden-item close-item"><img id="close-icon" class="close-icon" src="../img/icons/close.png" alt=""></li>
+                <li class="navigation-item hidden-item"><a href="#">Home</a></li>
+                <li class="navigation-item"><a href="#">My Lists</a></li>
+                <li class="navigation-item"><a href="#">My User</a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="movie-container">
+            <div class="movie-poster-container">
+                <img class="movie-poster" src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/8h0CG12Oft1GqthLmsctg8iuQQj.jpg" alt="">
+            </div>
+            <div class="movie-info-container">
+                <div class="movie-title-container">
+                    <h1 class="movie-title">Finding Nemo</h1>
+                </div>
+                <div class="movie-buttons-container">
+                    <button class="middle-button"><p>Want To See</p></button>
+                    <button class="middle-button"><p>Seen It</p></button>
+                    <button id="btn-custom-list" class="middle-button"><p>Custom List</p></button>
+                </div>
+                <div class="movie-data-container">
+                    <span class="movie-data movie-rating">9.6 IMDb</span>
+                    <span class="movie-data movie-genre">Adventure - Action</span>
+                    <span class="movie-data movie-rated">Rated: +18</span>
+                    <span class="movie-data movie-year">2019</span>
+                    <span class="movie-data movie-duration">120 min</span>
+                </div>
+                <div class="movie-description-title"><p>Overview</p></div>
+                <div class="movie-description-container"><p>Nemo, an adventurous young clownfish, is unexpectedly taken from his Great Barrier Reef home to a dentist's office aquarium. It's up to his worrisome father Marlin and a friendly but forgetful fish Dory to bring Nemo home -- meeting vegetarian sharks, surfer dude turtles, hypnotic jellyfish, hungry seagulls, and more along the way.</p></div>
+            </div>
+        </div>
+        <div class="movie-recommendations">
+            <div class="billboard-title-container justify-flex-start">
+                <h4 class="billboard-title">Recommendations ></h4>
+            </div>
+            <div class="billboard">
+                <a class="movie">
+                    <div class="poster-container"><img class="poster-image" src="../img/posters/Proof_of_Life_film.jpg" alt=""></div>
+                    <div class="movie-text-container"><p class="movie-text">Joker (2020)</p></div>
+                </a>
+                <a class="movie">
+                    <div class="poster-container"><img class="poster-image" src="../img/posters/Proof_of_Life_film.jpg" alt=""></div>
+                    <div class="movie-text-container"><p class="movie-text">Finding Nemo: An super adventure (2000)</p></div>
+                </a>
+                <a class="movie">
+                    <div class="poster-container"><img class="poster-image" src="../img/posters/Proof_of_Life_film.jpg" alt=""></div>
+                    <div class="movie-text-container"><p class="movie-text">Finding Nemo: An super adventure (2000)</p></div>
+                </a>
+                <a class="movie">
+                    <div class="poster-container"><img class="poster-image" src="../img/posters/Proof_of_Life_film.jpg" alt=""></div>
+                    <div class="movie-text-container"><p class="movie-text">Finding Nemo: An super adventure (2000)</p></div>
+                </a>
+                <a class="movie">
+                    <div class="poster-container"><img class="poster-image" src="../img/posters/Proof_of_Life_film.jpg" alt=""></div>
+                    <div class="movie-text-container"><p class="movie-text">Finding Nemo: An super adventure (2000)</p></div>
+                </a>
+                <a class="movie">
+                    <div class="poster-container"><img class="poster-image" src="../img/posters/Proof_of_Life_film.jpg" alt=""></div>
+                    <div class="movie-text-container"><p class="movie-text">Finding Nemo: An super adventure (2000)</p></div>
+                </a>
+                <a class="movie">
+                    <div class="poster-container"><img class="poster-image" src="../img/posters/Proof_of_Life_film.jpg" alt=""></div>
+                    <div class="movie-text-container"><p class="movie-text">Finding Nemo: An super adventure (2000)</p></div>
+                </a>
+            </div>
+        </div>
+        <div class="load-more-container"></div>
+    </main>
+    <footer></footer>
+    <div id="modal-custom-list" class="modal-container">
+        <div class="big-modal">
+            <div class="modal-searcher-container">
+                <input id="modal-searcher-input" class="modal-searcher-input" type="text" placeholder="Search a list..." name="" id="">
+            </div>
+            <div class="modal-list-results">
+                <label><input class="checkbox" type="checkbox" id="" value=""> Peliculas de Spider-Man</label>
+                <label><input class="checkbox" type="checkbox" id="" value=""> Peliculas de Spider-Man</label>
+                <label><input class="checkbox" type="checkbox" id="" value=""> Peliculas de Spider-Man</label>
+                <label><input class="checkbox" type="checkbox" id="" value=""> Peliculas de Spider-Man</label>
+                <label><input class="checkbox" type="checkbox" id="" value=""> Peliculas de Spider-Man</label>
+                <label><input class="checkbox" type="checkbox" id="" value=""> Peliculas de Spider-Man</label>
+                <label><input class="checkbox" type="checkbox" id="" value=""> Peliculas de Spider-Man</label>
+                <label><input class="checkbox" type="checkbox" id="" value=""> Peliculas de Spider-Man</label>
+                <label><input class="checkbox" type="checkbox" id="" value=""> Peliculas de Spider-Man</label>
+                <label><input class="checkbox" type="checkbox" id="" value=""> Peliculas de Spider-Man</label>
+                <label><input class="checkbox" type="checkbox" id="" value=""> Peliculas de Spider-Man</label>
+                <label><input class="checkbox" type="checkbox" id="" value=""> Peliculas de Spider-Man</label>
+            </div>
+        </div>
+    </div>
+    <script src="../scripts/styles.js"></script>
+</body>
+</html>

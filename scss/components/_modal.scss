@@ -1,0 +1,81 @@
+.modal-container {
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    #c4c4c4 0%,
+    rgba(0, 0, 0, 0.833333) 0.01%,
+    rgba(0, 0, 0, 0.92) 100%
+  );
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.big-modal {
+  width: 50%;
+  height: 80%;
+  background: $color-background;
+  border-radius: 15px;
+  border: 1px solid $color-white;
+}
+
+.modal-searcher-container {
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.modal-searcher-input {
+  height: 4rem;
+  width: 80%;
+  font-size: 2rem;
+  font-family: $roboto-family;
+  padding: 1rem;
+  background-color: $second-background;
+  border: $color-white 1px solid;
+  border-radius: 15px;
+  color: $color-white;
+  outline: none;
+  &:focus {
+    border: $color-white 2px solid;
+    /*     .searcher-btn {
+        border: $color-white 2px solid;
+      } */
+  }
+  /*   @include mq(640) {
+    height: 4rem;
+    width: 70%;
+    font-size: 2rem;
+  }
+  @include mq(400) {
+    font-size: 1.75rem;
+  } */
+}
+
+.modal-list-results {
+  width: 100%;
+  height: 85%;
+  padding: 2rem 7rem 1rem 7rem;
+  display: flex;
+  flex-direction: column;
+  color: $color-white;
+  font-family: $roboto-family;
+  font-size: 2rem;
+  font-weight: 700;
+  overflow: auto;
+}
+
+.modal-list-results > * {
+  margin-bottom: 2rem;
+}
+
+.checkbox {
+  margin-right: 2rem;
+}

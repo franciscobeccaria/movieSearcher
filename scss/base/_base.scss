@@ -19,5 +19,27 @@ a {
   color: black;
 }
 
+h4 {
+  color: $color-main;
+  font-family: $racing-sans-one-family;
+  font-size: 3rem;
+  @include mq(640) {
+    font-size: 2rem;
+  }
+}
+
+.no-show {
+  display: none;
+}
+
+.show-flex {
+  display: flex;
+}
+
+.justify-flex-start {
+  justify-content: flex-start;
+  padding-left: 5rem;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap');

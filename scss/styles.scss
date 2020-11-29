@@ -1,6 +1,14 @@
-@import './base/base';
-
 @import './config/mixins';
 @import './config/variables';
 
 @import './layout/header';
+@import './layout/main';
+@import './layout/footer';
+
+@import './pages/movie-page';
+
+@import './components/button';
+@import './components/movie-card';
+@import './components/modal';
+
+@import './base/base';

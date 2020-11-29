@@ -1,0 +1,57 @@
+.movie {
+  margin: 2rem;
+  width: 15.6rem;
+  @include mq(640) {
+    margin: 1rem;
+    width: 10.3rem;
+  }
+  @include mq(640) {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  &:hover .poster-container {
+    border: 2px solid red;
+  }
+  &:hover .movie-text {
+    color: $color-white;
+  }
+}
+
+.poster-container {
+  height: 23.6rem;
+  width: 15.6rem;
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+  @include mq(640) {
+    height: 15.58rem;
+    width: 10.3rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.poster-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.movie-text-container {
+  display: flex;
+  //justify-content: center;
+  //align-items: center;
+  height: 5rem;
+  padding: 0.3rem;
+  @include mq(640) {
+    height: 3rem;
+  }
+}
+
+.movie-text {
+  color: #d6d6d6;
+  font-size: 1.5rem;
+  font-family: $roboto-family;
+  cursor: pointer;
+  @include mq(640) {
+    font-size: 1rem;
+  }
+}
