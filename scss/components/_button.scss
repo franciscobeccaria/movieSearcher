@@ -101,3 +101,40 @@
     font-size: 1.25rem;
   }
 }
+
+.little-button {
+  height: 3.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-main;
+  border-radius: 15px;
+  outline: none;
+  cursor: pointer;
+  border: 0px;
+  &:hover {
+    background-color: $color-white;
+  }
+}
+
+.little-button > p {
+  font-family: $racing-sans-one-family;
+  color: $color-black;
+  font-size: 1.75rem;
+  margin: 0 2rem 0 2rem;
+  @include mq(400) {
+    font-size: 1.25rem;
+  }
+}
+
+.white-button {
+  background-color: $second-background;
+  border: 1px solid $color-white;
+  &:hover {
+    background-color: $color-main;
+  }
+}
+
+.white-button > p {
+  color: $color-white;
+}

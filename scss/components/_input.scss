@@ -1,0 +1,29 @@
+.input-big-half {
+  height: 4rem;
+  font-size: 2rem;
+  font-family: $roboto-family;
+  padding: 1rem;
+  background-color: $second-background;
+  border: $color-white 1px solid;
+  border-radius: 15px;
+  color: $color-white;
+  outline: none;
+  &:focus {
+    border: $color-white 2px solid;
+  }
+  @include mq(400) {
+    font-size: 1.5rem;
+  }
+}
+
+.input-label {
+  height: 3rem;
+  font-size: 2rem;
+  font-family: $roboto-family;
+  padding: 0.5rem;
+  color: $color-white;
+  margin-bottom: 0.5rem;
+  @include mq(400) {
+    font-size: 1.5rem;
+  }
+}

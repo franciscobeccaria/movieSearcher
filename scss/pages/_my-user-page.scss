@@ -1,0 +1,111 @@
+.my-user-main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 30rem;
+}
+
+.my-user-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 50rem;
+  @include mq(640) {
+    width: 90%;
+  }
+}
+
+.my-user-container > * {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8rem;
+  @include mq(640) {
+    height: auto;
+  }
+}
+
+.my-user-title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.my-user-title {
+  color: $color-white;
+  font-family: $roboto-family;
+  font-size: 4rem;
+  margin: 4rem 0 2rem 0;
+  @include mq(400) {
+    font-size: 3rem;
+  }
+}
+
+.my-user-inputs-container {
+  display: flex;
+  justify-content: space-between;
+  @include mq(640) {
+    flex-wrap: wrap;
+  }
+}
+
+.my-user-name-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0 1rem 0;
+  @include mq(640) {
+    width: 100%;
+  }
+}
+
+.my-user-save-changes-container {
+  padding-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  @include mq(640) {
+    padding-bottom: 2rem;
+  }
+}
+
+.my-user-buttons-container {
+  display: flex;
+  justify-content: space-between;
+  @include mq(640) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+.my-user-buttons-container > button {
+  width: 20rem;
+  @include mq(640) {
+    margin: 1rem;
+  }
+}
+
+.my-user-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: auto;
+  padding-top: 1rem;
+}
+
+.my-user-info-container > p {
+  height: 3rem;
+  font-size: 2rem;
+  font-family: $roboto-family;
+  padding: 0.5rem;
+  color: $color-white;
+  @include mq(400) {
+    font-size: 1.5rem;
+  }
+}
+
+.info-title {
+  font-weight: 700;
+}
