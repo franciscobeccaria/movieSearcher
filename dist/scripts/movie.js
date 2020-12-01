@@ -181,7 +181,8 @@ const drawMoviePage = (data) => {
     duration = data.duration + ' min';
   }
   let certification;
-  if (data.certification === 'undefined') {
+  console.log(data.certification);
+  if (data.certification === undefined) {
     certification = '';
   } else {
     certification = data.certification;
