@@ -206,9 +206,7 @@ const drawMoviePage = (data) => {
                     <span class="movie-data movie-genre">${genreArray
                       .toString()
                       .replace(/,/g, ' - ')}</span>
-                    <span class="movie-data movie-rated">${
-                      data.certification
-                    }</span>
+                    <span class="movie-data movie-rated">${certification}</span>
                     <span class="movie-data movie-year">${
                       data.releaseDate
                     }</span>
