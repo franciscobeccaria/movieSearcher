@@ -5,6 +5,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  @include mq(400) {
+    height: 7rem;
+  }
 }
 
 .logo-container {
@@ -80,12 +83,13 @@ header {
     text-decoration: underline;
   }
   @include mq(760) {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     height: 3rem;
     width: 8rem;
   }
   @include mq(640) {
     margin-bottom: 2rem;
+    font-size: 2rem;
   }
 }
 
