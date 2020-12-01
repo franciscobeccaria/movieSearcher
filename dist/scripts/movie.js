@@ -180,6 +180,12 @@ const drawMoviePage = (data) => {
   } else {
     duration = data.duration + ' min';
   }
+  let certification;
+  if (data.certification === 'undefined') {
+    certification = '';
+  } else {
+    certification = data.certification;
+  }
   const movieContainer = `
             <div class="movie-poster-container">
                 <img class="movie-poster" src="${posterSrc}" alt="">
