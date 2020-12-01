@@ -16,6 +16,9 @@ const loadData = async (searchURL) => {
   const response = await axios.get(searchURL).then(function (response) {
     const element = response.data.results;
     totalPages = response.data.total_pages;
+    if (totalPages == 1) {
+      loadMoreBtn.classList.add('no-show');
+    }
     if (response.data.total_results === 0) {
       document
         .getElementById('no-results-container')
@@ -78,6 +81,11 @@ document.addEventListener('keypress', function (e) {
 });
 
 const search = () => {
+  if (new URLSearchParams(window.location.search).get('page')) {
+    let queryParams = new URLSearchParams(window.location.search);
+    queryParams.set('page', '1');
+    history.replaceState(null, null, '?' + queryParams.toString());
+  }
   loadMoreBtn.classList.remove('no-show');
   const searchValueWithSpaces = searcher.value.trim().toLowerCase();
   const searchValue = searcher.value.trim().replace(/ /g, '+');
