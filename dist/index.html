@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/styles.css">
+    <link rel="icon" href="img/icons/favicon.png" sizes="16x16">
     <title>Movie Searcher</title>
 </head>
 <body>
@@ -31,16 +32,16 @@
             <button id="search-btn" class="searcher-btn"><img class="searcher-icon" src="./img/icons/loupe.png" alt=""></button>
         </div>
         <div class="billboard-container">
-            <div class="no-results-container no-show">
+            <div id="no-results-container" class="no-results-container no-show">
                 <div class="no-results big-button-only-info"><p>No results found</p></div>
             </div>
-            <div class="billboard-title-container">
+            <div id="billboard-title-container" class="billboard-title-container">
                 <h4 id="billboard-title" class="billbord-title">Trending Movies ></h4>
             </div>
             <div id="billboard" class="billboard">
             </div>
             <div class="load-more-container">
-                <button class="big-button no-show"><p>Load More ></p></button>
+                <button id="load-more-btn" class="big-button no-show"><p>Load More ></p></button>
             </div>
         </div>
     </main>

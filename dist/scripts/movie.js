@@ -9,19 +9,32 @@ class Movie {
 
 const apiKey = '81d1f6291941e4cbb7818fa6c6be6f85';
 
+let totalPages;
+
 // loadData & draw for Home Page.
 const loadData = async (searchURL) => {
   const response = await axios.get(searchURL).then(function (response) {
     const element = response.data.results;
-    element.forEach((movie) => {
-      const eachMovie = new Movie(
-        movie.title,
-        movie.poster_path,
-        movie.release_date,
-        movie.id
-      );
-      draw(eachMovie);
-    });
+    totalPages = response.data.total_pages;
+    if (response.data.total_results === 0) {
+      document
+        .getElementById('no-results-container')
+        .classList.remove('no-show');
+      document
+        .getElementById('billboard-title-container')
+        .classList.add('no-show');
+    } else {
+      document.getElementById('no-results-container').classList.add('no-show');
+      element.forEach((movie) => {
+        const eachMovie = new Movie(
+          movie.title,
+          movie.poster_path,
+          movie.release_date,
+          movie.id
+        );
+        draw(eachMovie);
+      });
+    }
   });
 };
 
@@ -31,7 +44,7 @@ const draw = (data) => {
   if (data.poster === null) {
     posterSrc = './img/posters/not-found-image-15383864787lu.jpg';
   } else {
-    posterSrc = `https://image.tmdb.org/t/p/original/${data.poster}`;
+    posterSrc = `https://image.tmdb.org/t/p/w220_and_h330_face/${data.poster}`;
   }
   let movieCardLink;
   if (document.getElementById('main-index')) {
@@ -65,14 +78,42 @@ document.addEventListener('keypress', function (e) {
 });
 
 const search = () => {
+  loadMoreBtn.classList.remove('no-show');
   const searchValueWithSpaces = searcher.value.trim().toLowerCase();
   const searchValue = searcher.value.trim().replace(/ /g, '+');
-  const searchURL = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&page=1&query=${searchValue}`;
+  const searchURL = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&query=${searchValue}`;
   const billboard = document.getElementById('billboard');
   billboard.innerHTML = '';
   const billboardTitle = document.getElementById('billboard-title');
   billboardTitle.innerHTML = '';
   billboardTitle.innerHTML = `Found movies with '${searchValueWithSpaces}' >`;
+  loadData(searchURL);
+};
+
+const loadMoreBtn = document.getElementById('load-more-btn');
+if (loadMoreBtn !== null) {
+  loadMoreBtn.addEventListener('click', () => {
+    loadMoreMovies();
+  });
+}
+
+const loadMoreMovies = () => {
+  let pageInURL = new URLSearchParams(window.location.search).get('page');
+  let newPage;
+  if (pageInURL === null) {
+    newPage = '2';
+  } else {
+    newPage = parseInt(pageInURL) + 1;
+  }
+  if (totalPages == newPage) {
+    loadMoreBtn.classList.add('no-show');
+  }
+  let queryParams = new URLSearchParams(window.location.search);
+  queryParams.set('page', newPage);
+  history.replaceState(null, null, '?' + queryParams.toString());
+  const page = new URLSearchParams(window.location.search).get('page');
+  const searchValue = searcher.value.trim().replace(/ /g, '+');
+  const searchURL = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&language=en-US&page=${page}&query=${searchValue}`;
   loadData(searchURL);
 };
 
@@ -147,15 +188,24 @@ const loadMoviePageData = async (
       );
       drawMoviePage(moviePage);
 
-      recommendationsData.forEach((movie) => {
-        const eachMovie = new Movie(
-          movie.title,
-          movie.poster_path,
-          movie.release_date,
-          movie.id
-        );
-        draw(eachMovie);
-      });
+      if (recommendationsData.length === 0) {
+        document
+          .getElementById('no-results-container')
+          .classList.remove('no-show');
+      } else {
+        document
+          .getElementById('no-results-container')
+          .classList.add('no-show');
+        recommendationsData.forEach((movie) => {
+          const eachMovie = new Movie(
+            movie.title,
+            movie.poster_path,
+            movie.release_date,
+            movie.id
+          );
+          draw(eachMovie);
+        });
+      }
     })
   );
 };
@@ -181,7 +231,6 @@ const drawMoviePage = (data) => {
     duration = data.duration + ' min';
   }
   let certification;
-  console.log(data.certification);
   if (data.certification === undefined) {
     certification = '';
   } else {
