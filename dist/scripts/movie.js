@@ -15,6 +15,7 @@ let totalPages;
 const loadData = async (searchURL) => {
   const response = await axios.get(searchURL).then(function (response) {
     const element = response.data.results;
+    console.log(response.data.results);
     totalPages = response.data.total_pages;
     if (totalPages == 1) {
       loadMoreBtn.classList.add('no-show');
@@ -253,7 +254,7 @@ const drawMoviePage = (data) => {
                     <h1 class="movie-title">${data.title}</h1>
                 </div>
                 <div class="movie-buttons-container">
-                    <button class="middle-button"><p>Want To See</p></button>
+                    <button id="btn-probando" class="middle-button"><p>Want To See</p></button>
                     <button class="middle-button"><p>Seen It</p></button>
                     <button id="btn-custom-list" class="middle-button"><p id="p-custom-list">Custom List</p></button>
                 </div>

@@ -92,3 +92,38 @@ function showToastMessage(message) {
     x.className = x.className.replace('show', '');
   }, 3000);
 }
+
+const goToIndex = () => {
+  window.location.pathname = '/index.html';
+};
+
+const showLoader = () => {
+  const main = document.getElementById('main-login-page');
+  main.innerHTML = '';
+  main.innerHTML = `
+              <div class="loaderContainer">
+                <div class="loader"></div>
+              </div>;
+`;
+};
+
+const successfulLogin = () => {
+  const main = document.getElementById('main-login-page');
+  main.innerHTML = '';
+  main.innerHTML = `
+         <div class="login-container">
+            <div class="login-info-container">
+                <div class="login-social-title-container">
+                    <h3>Successful Login go to Homepage ></h3>
+                </div>
+                <div class="login-buttons-container">
+                    <button id="goToHomeBtn" class="middle-button"><p>Home</p></button>
+                </div>
+            </div>
+        </div>
+`;
+  document.getElementById('goToHomeBtn').addEventListener('click', () => {
+    console.log('goToHome executed');
+    window.location.pathname = '/index.html';
+  });
+};

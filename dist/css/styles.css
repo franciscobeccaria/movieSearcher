@@ -97,7 +97,7 @@ header {
     .navigation-item {
       font-size: 1.75rem;
       height: 3rem;
-      width: 8rem; } }
+      width: 12rem; } }
   @media screen and (max-width: 640px) {
     .navigation-item {
       margin-bottom: 2rem;
@@ -457,7 +457,8 @@ footer {
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding-bottom: 20rem; }
+  padding-bottom: 20rem;
+  min-height: 70vh; }
 
 .login-container {
   display: flex;
@@ -1193,3 +1194,52 @@ h4 {
   to {
     bottom: 0;
     opacity: 0; } }
+
+.loaderContainer {
+  width: 100vw;
+  height: 400px;
+  padding-top: 100px;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: hidden; }
+
+.loader {
+  width: 75px;
+  height: 75px;
+  margin: 0;
+  background: transparent;
+  border-top: 4px solid #c21c1c;
+  border-right: 4px solid transparent;
+  border-radius: 50%;
+  -webkit-animation: 1s spin linear infinite;
+  animation: 1s spin linear infinite; }
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }

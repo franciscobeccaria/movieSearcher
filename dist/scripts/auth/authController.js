@@ -18,8 +18,8 @@ $(() => {
     const resp = await objAuth.autEmailPass(email, password);
     if (resp) {
       //$('#avatar').attr('src', 'imagenes/usuario_auth.png');
-      //showToastMessage(`Bienvenido ${resp.user.displayName}`);
-      window.location.pathname = '/index.html';
+      showToastMessage(`Bienvenido ${resp.user.displayName}`);
+      //window.location.pathname = '/index.html';
       Materialize.toast(`Bienvenido ${resp.user.displayName}`, 5000);
     } else {
       showToastMessage(`Por favor realiza la verificación de la cuenta`);
@@ -30,7 +30,8 @@ $(() => {
 
   $('#btnGoogleLogin').click(async () => {
     const user = await objAuth.authGoogle();
-    window.location.pathname = '/index.html';
+    //showToastMessage(`Bienvenido ${resp.user.displayName}`);
+    //window.location.pathname = '/index.html';
     //$('#avatar').attr('src', user.photoURL);
     //$('.modal').modal('close');
     Materialize.toast(`Bienvenido ${user.displayName} !! `, 4000);
@@ -38,7 +39,8 @@ $(() => {
 
   $('#btnFacebookLogin').click(async () => {
     const user = await objAuth.authFacebook();
-    window.location.pathname = '/index.html';
+    //showToastMessage(`Bienvenido ${resp.user.displayName}`);
+    //window.location.pathname = '/index.html';
     //$('#avatar').attr('src', user.photoURL);
     //$('.modal').modal('close');
     Materialize.toast(`Bienvenido ${user.displayName} !! `, 4000);
@@ -85,7 +87,10 @@ $(() => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       console.log(user);
-      $('#myUser').text('Edit User');
+      $('#myUserContainer').removeClass('no-show');
+      $('#myListsContainer').removeClass('no-show');
+      $('#loginLinkContainer').addClass('no-show');
+      //$('#myUser').text('Edit User');
       $('#loguedEmail').text(user.email);
       $('#loguedFirstname').text(user.displayName);
       if (user.photoURL) {

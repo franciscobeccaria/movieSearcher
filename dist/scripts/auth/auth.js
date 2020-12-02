@@ -6,6 +6,47 @@ class Autenticacion {
         .signInWithEmailAndPassword(email, password);
 
       if (result.user.emailVerified) {
+        let docRef = firebase
+          .firestore()
+          .collection('accounts')
+          .doc(result.user.uid);
+        docRef
+          .get()
+          .then(function (doc) {
+            if (doc.exists) {
+              console.log(doc.data());
+              successfulLogin();
+            } else {
+              const userUid = result.user.uid;
+              const arrays = { WantToSee: [], SeenIt: [] };
+              const userInfo = {
+                name: result.user.displayName,
+                email: result.user.email,
+                uid: userUid,
+                provider: result.user.providerData[0].providerId,
+              };
+              firebase
+                .firestore()
+                .collection('accounts')
+                .doc(userUid)
+                .set(arrays);
+              firebase
+                .firestore()
+                .collection('accounts')
+                .doc(userUid)
+                .collection('user')
+                .doc('info')
+                .set(userInfo);
+              successfulLogin();
+            }
+          })
+          .catch(function (error) {
+            console.log('Error getting document:', error);
+          });
+      }
+
+      if (result.user.emailVerified) {
+        showLoader();
         return result;
       }
 
@@ -51,6 +92,47 @@ class Autenticacion {
       const result = await firebase.auth().signInWithPopup(provider);
 
       if (result) {
+        let docRef = firebase
+          .firestore()
+          .collection('accounts')
+          .doc(result.user.uid);
+        docRef
+          .get()
+          .then(function (doc) {
+            if (doc.exists) {
+              console.log(doc.data());
+              successfulLogin();
+            } else {
+              const userUid = result.user.uid;
+              const arrays = { WantToSee: [], SeenIt: [] };
+              const userInfo = {
+                name: result.user.displayName,
+                email: result.user.email,
+                uid: userUid,
+                provider: result.user.providerData[0].providerId,
+              };
+              firebase
+                .firestore()
+                .collection('accounts')
+                .doc(userUid)
+                .set(arrays);
+              firebase
+                .firestore()
+                .collection('accounts')
+                .doc(userUid)
+                .collection('user')
+                .doc('info')
+                .set(userInfo);
+              successfulLogin();
+            }
+          })
+          .catch(function (error) {
+            console.log('Error getting document:', error);
+          });
+      }
+
+      if (result) {
+        showLoader();
         return result.user;
       }
 
@@ -68,6 +150,47 @@ class Autenticacion {
       const result = await firebase.auth().signInWithPopup(provider);
 
       if (result) {
+        let docRef = firebase
+          .firestore()
+          .collection('accounts')
+          .doc(result.user.uid);
+        docRef
+          .get()
+          .then(function (doc) {
+            if (doc.exists) {
+              console.log(doc.data());
+              successfulLogin();
+            } else {
+              const userUid = result.user.uid;
+              const arrays = { WantToSee: [], SeenIt: [] };
+              const userInfo = {
+                name: result.user.displayName,
+                email: result.user.email,
+                uid: userUid,
+                provider: result.user.providerData[0].providerId,
+              };
+              firebase
+                .firestore()
+                .collection('accounts')
+                .doc(userUid)
+                .set(arrays);
+              firebase
+                .firestore()
+                .collection('accounts')
+                .doc(userUid)
+                .collection('user')
+                .doc('info')
+                .set(userInfo);
+              successfulLogin();
+            }
+          })
+          .catch(function (error) {
+            console.log('Error getting document:', error);
+          });
+      }
+
+      if (result) {
+        showLoader();
         return result.user;
       }
 
