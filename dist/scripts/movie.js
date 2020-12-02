@@ -291,3 +291,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('main-login-page')) {
+    const from = new URLSearchParams(window.location.search).get('from');
+    if (from && from === 'signup') {
+      document
+        .getElementById('verification-message')
+        .classList.remove('no-show');
+    }
+  }
+});

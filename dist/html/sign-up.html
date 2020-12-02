@@ -22,7 +22,7 @@
                 <li class="navigation-item hidden-item close-item"><img id="close-icon" class="close-icon" src="../img/icons/close.png" alt=""></li>
                 <li class="navigation-item hidden-item"><a href="../index.html">Home</a></li>
                 <li class="navigation-item"><a href="./login.html">My Lists</a></li>
-                <li class="navigation-item"><a href="./my-user.html">My User</a></li>
+                <li class="navigation-item"><a id="myUser" href="./my-user.html">My User</a></li>
             </ul>
         </div>
     </header>
@@ -34,33 +34,54 @@
             <div class="login-inputs-container">
                 <div class="login-name-container">
                     <label class="input-label" for="">Email</label>
-                    <input class="input-big-half" type="text" placeholder="Email">
+                    <input id="emailReg" class="input-big-half" type="text" placeholder="Email">
                 </div>
                 <div class="login-name-container">
                     <label class="input-label" for="">Password</label>
-                    <input class="input-big-half" type="password" placeholder="Password">
+                    <input id="passwordReg" class="input-big-half" type="password" placeholder="Password">
                 </div>
-                <div class="login-name-container">
+                <!-- <div class="login-name-container">
                     <label class="input-label" for="">Confirm password</label>
-                    <input class="input-big-half" type="password" placeholder="Confirm password">
-                </div>
+                    <input id="confirmPasswordReg" class="input-big-half" type="password" placeholder="Confirm password">
+                </div> -->
                 <div>
                     <div class="login-name-container">
                         <label class="input-label" for="">Firstname</label>
-                        <input class="input-big-half" type="text" placeholder="Firstname">
+                        <input id="firstnameReg" class="input-big-half" type="text" placeholder="Firstname">
                     </div>
                     <div class="login-name-container">
                         <label class="input-label" for="">Lastname</label>
-                        <input class="input-big-half" type="text" placeholder="Lastname">
+                        <input id="lastnameReg" class="input-big-half" type="text" placeholder="Lastname">
                     </div>
                 </div>
             </div>
             <div class="login-buttons-container center padding-10">
-                <button class="middle-button"><p>Sign up</p></button>
+                <button id="btnEmailRegister" class="middle-button"><p>Sign up</p></button>
             </div>
         </div>
     </main>
     <footer></footer>
+    <div id="snackbar">Some text some message..</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+
+    <script src="/__/firebase/init.js"></script>
+    
+    <script type="text/javascript" src="../scripts/config/ConfigFirebase.js"></script>
+    <script type="text/javascript" src="../scripts/general.js"></script>
+
+    <script src="../scripts/movie.js"></script>
     <script src="../scripts/styles.js"></script>
+
+    <script type="text/javascript" src="../scripts/auth/auth.js"></script>
+    <script type="text/javascript" src="../scripts/auth/authController.js"></script>
 </body>
 </html>

@@ -22,7 +22,7 @@
                 <li class="navigation-item hidden-item close-item"><img id="close-icon" class="close-icon" src="../img/icons/close.png" alt=""></li>
                 <li class="navigation-item hidden-item"><a href="../index.html">Home</a></li>
                 <li class="navigation-item"><a href="./login.html">My Lists</a></li>
-                <li class="navigation-item"><a href="./my-user.html">My User</a></li>
+                <li class="navigation-item"><a id="myUser" href="./my-user.html">My User</a></li>
             </ul>
         </div>
     </header>
@@ -33,32 +33,53 @@
             </div>
             <div class="my-user-inputs-container">
                 <div class="my-user-name-container">
-                    <label class="input-label" for="">Firstname</label>
-                    <input class="input-big-half" type="text" placeholder="Enter your Firstname">
+                    <label class="input-label" for="">Name</label>
+                    <input id="newNameInput" class="input-big-half" type="text" placeholder="Enter a new Name">
                 </div>
-                <div class="my-user-name-container">
+                <!-- <div class="my-user-name-container">
                     <label class="input-label" for="">Lastname</label>
-                    <input class="input-big-half" type="text" placeholder="Enter your Lastname">
-                </div>
+                    <input class="input-big-half" type="text" placeholder="Enter a new Lastname">
+                </div> -->
             </div>
             <div class="my-user-save-changes-container">
-                <button class="little-button"><p>Save changes</p></button>
+                <button id="btnUpdateName" class="little-button"><p>Save changes</p></button>
             </div>
             <div class="my-user-buttons-container">
-                <button class="middle-button white-button"><p>Sign out</p></button>
+                <button id="btnSignOut" class="middle-button white-button"><p>Sign out</p></button>
                 <button class="middle-button"><p>Change password</p></button>
             </div>
             <div class="my-user-info-container">
                 <p class="info-title">Email:</p>
-                <p class="info-p">thomaskingston@gmail.com</p>
-                <p class="info-title">Firstname:</p>
-                <p class="info-p">Thomas</p>
-                <p class="info-title">Lastname:</p>
-                <p class="info-p">Kingston</p>
+                <p id="loguedEmail" class="info-p">thomaskingston@gmail.com</p>
+                <p class="info-title">Name:</p>
+                <p id="loguedFirstname" class="info-p">Thomas</p>
+                <!-- <p class="info-title">Lastname:</p>
+                <p id="loguedLastname" class="info-p">Kingston</p> -->
             </div>
         </div>
     </main>
     <footer></footer>
+    <div id="snackbar">Some text some message..</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+
+    <script src="/__/firebase/init.js"></script>
+    
+    <script type="text/javascript" src="../scripts/config/ConfigFirebase.js"></script>
+    <script type="text/javascript" src="../scripts/general.js"></script>
+
+    <script src="../scripts/movie.js"></script>
     <script src="../scripts/styles.js"></script>
+
+    <script type="text/javascript" src="../scripts/auth/auth.js"></script>
+    <script type="text/javascript" src="../scripts/auth/authController.js"></script>
 </body>
 </html>

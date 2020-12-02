@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="icon" href="../img/icons/favicon.png" sizes="16x16">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Login</title>
 </head>
 <body>
@@ -22,23 +23,24 @@
                 <li class="navigation-item hidden-item close-item"><img id="close-icon" class="close-icon" src="../img/icons/close.png" alt=""></li>
                 <li class="navigation-item hidden-item"><a href="../index.html">Home</a></li>
                 <li class="navigation-item"><a href="./login.html">My Lists</a></li>
-                <li class="navigation-item"><a href="./my-user.html">My User</a></li>
+                <li class="navigation-item"><a id="myUser" href="./my-user.html">My User</a></li>
             </ul>
         </div>
     </header>
-    <main class="login-main">
+    <main id="main-login-page" class="login-main">
         <div class="login-container">
             <div class="login-title-container">
                 <h2 class="login-title">Login</h2>
             </div>
+            <div id="verification-message" class="verification-message-container no-show">
+                <p>> Verify your email before login</p>
+            </div>
             <div class="login-inputs-container">
                 <div class="login-name-container">
-
-                    <input class="input-big-half" type="text" placeholder="Email">
+                    <input id="emailLog" class="input-big-half" type="text" placeholder="Email">
                 </div>
                 <div class="login-name-container">
-            
-                    <input class="input-big-half" type="password" placeholder="Password">
+                    <input id="passwordLog" class="input-big-half" type="password" placeholder="Password">
                 </div>
             </div>
             <div class="forgot-container">
@@ -46,24 +48,45 @@
             </div>
             <div class="login-buttons-container">
                 <button class="middle-button white-button" onclick="window.location.href='./sign-up.html'"><p>Sign up</p></button>
-                <button class="middle-button"><p>Login</p></button>
+                <button id="btnEmailLogin" class="middle-button"><p>Login</p></button>
             </div>
             <div class="login-info-container">
                 <div class="login-social-title-container">
-                    <h3>or Sign up using ></h3>
+                    <h3>Sign up or Login using ></h3>
                 </div>
                 <div class="login-social-container">
-                    <div class="social-container">
-                        <img class="social-icon" src="../img/icons/1024px-Facebook_Logo_(2019).png" alt="">
-                    </div>
-                    <div class="social-container">
-                        <img class="social-icon" src="../img/icons/178-1783296_g-transparent-circle-google-logo.png" alt="">
-                    </div>
+                    <button id="btnGoogleLogin" class="social-container fa fa-google">
+                        <a href="#" class="after-span ripple"></a>
+                        </button>
+                    <button id="btnFacebookLogin" class="social-container fa fa-facebook">
+                        <a href="#" class="after-span ripple"></a>
+                    </button>
                 </div>
             </div>
         </div>
     </main>
     <footer></footer>
+    <div id="snackbar">Some text some message..</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+
+    <script src="/__/firebase/init.js"></script>
+    
+    <script type="text/javascript" src="../scripts/config/ConfigFirebase.js"></script>
+    <script type="text/javascript" src="../scripts/general.js"></script>
+
+    <script src="../scripts/movie.js"></script>
     <script src="../scripts/styles.js"></script>
+
+    <script type="text/javascript" src="../scripts/auth/auth.js"></script>
+    <script type="text/javascript" src="../scripts/auth/authController.js"></script>
 </body>
 </html>

@@ -584,8 +584,87 @@ footer {
 
 .social-icon {
   height: 100%;
+  width: 100%; }
+
+.social-container {
+  outline: none;
+  border: 0px;
+  margin: 0 20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #ff0;
+  line-height: 80px !important;
+  text-align: center;
+  color: snow;
+  font-size: 40px !important;
+  box-shadow: 1px 1px 1px -1px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease; }
+  .social-container:hover {
+    opacity: 1; }
+  @media screen and (max-width: 640px) {
+    .social-container {
+      margin: 0 10px;
+      width: 60px;
+      height: 60px;
+      line-height: 60px !important;
+      font-size: 30px !important; } }
+  @media screen and (max-width: 400px) {
+    .social-container {
+      margin: 0 10px;
+      width: 50px;
+      height: 50px;
+      line-height: 50px !important;
+      font-size: 25px !important; } }
+
+.social-container:before {
+  position: relative;
+  z-index: 1; }
+
+.social-container:nth-of-type(1) {
+  background: #ea4335; }
+
+.social-container:nth-of-type(2) {
+  background: #4867aa; }
+
+.after-span {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
   width: 100%;
-  object-fit: cover; }
+  height: 100%;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.75s ease-in; }
+
+/* .social-container:hover {
+} */
+.social-container:hover .after-span.ripple {
+  transform: scale(1);
+  transition: transform 1s ease-out; }
+
+.verification-message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.verification-message-container > p {
+  color: #f0f0f0;
+  font-style: italic;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  font-size: 1.75rem;
+  margin: 0 0 1rem 0; }
+  @media screen and (max-width: 640px) {
+    .verification-message-container > p {
+      font-size: 1.5rem; } }
+  @media screen and (max-width: 400px) {
+    .verification-message-container > p {
+      font-size: 1.4rem; } }
 
 .my-lists-main {
   display: flex;
@@ -1044,3 +1123,73 @@ h4 {
 
 .padding-10 {
   padding: 2rem; }
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+  visibility: hidden;
+  /* Hidden by default. Visible on click */
+  min-width: 250px;
+  /* Set a default minimum width */
+  margin-left: -125px;
+  /* Divide value of min-width by 2 */
+  background-color: #333;
+  /* Black background color */
+  color: #fff;
+  /* White text color */
+  text-align: center;
+  /* Centered text */
+  border-radius: 2px;
+  /* Rounded borders */
+  padding: 16px;
+  /* Padding */
+  position: fixed;
+  /* Sit on top of the screen */
+  z-index: 1;
+  /* Add a z-index if needed */
+  left: 50%;
+  /* Center the snackbar */
+  bottom: 30px;
+  /* 30px from the bottom */
+  font-size: 1.5rem; }
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible;
+  /* Show the snackbar */
+  /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+  -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  animation: fadein 0.5s, fadeout 0.5s 2.5s; }
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0; }
+  to {
+    bottom: 30px;
+    opacity: 1; } }
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0; }
+  to {
+    bottom: 30px;
+    opacity: 1; } }
+
+@-webkit-keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1; }
+  to {
+    bottom: 0;
+    opacity: 0; } }
+
+@keyframes fadeout {
+  from {
+    bottom: 30px;
+    opacity: 1; }
+  to {
+    bottom: 0;
+    opacity: 0; } }

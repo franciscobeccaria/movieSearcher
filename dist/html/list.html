@@ -22,7 +22,7 @@
                 <li class="navigation-item hidden-item close-item"><img id="close-icon" class="close-icon" src="../img/icons/close.png" alt=""></li>
                 <li class="navigation-item hidden-item"><a href="../index.html">Home</a></li>
                 <li class="navigation-item"><a href="./login.html">My Lists</a></li>
-                <li class="navigation-item"><a href="./my-user.html">My User</a></li>
+                <li class="navigation-item"><a id="myUser" href="./my-user.html">My User</a></li>
             </ul>
         </div>
     </header>
@@ -143,6 +143,27 @@
             </div>
         </div>
     </div>
+    <div id="snackbar">Some text some message..</div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-analytics.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.23.0/firebase-firestore.js"></script>
+
+    <script src="/__/firebase/init.js"></script>
+    
+    <script type="text/javascript" src="../scripts/config/ConfigFirebase.js"></script>
+    <script type="text/javascript" src="../scripts/general.js"></script>
+
+    <script src="../scripts/movie.js"></script>
     <script src="../scripts/styles.js"></script>
+
+    <script type="text/javascript" src="../scripts/auth/auth.js"></script>
+    <script type="text/javascript" src="../scripts/auth/authController.js"></script>
 </body>
 </html>
