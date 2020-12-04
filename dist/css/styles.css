@@ -1100,6 +1100,8 @@ a {
   color: black; }
 
 h4 {
+  text-align: center;
+  padding: 0.5rem 0.5rem 0.5rem 0.5rem;
   color: #c21c1c;
   font-family: "Racing Sans One", Arial, Helvetica, sans-serif;
   font-size: 3rem; }

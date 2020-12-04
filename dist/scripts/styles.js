@@ -67,6 +67,13 @@ if (document.getElementById('btn-create-list')) {
   });
 }
 
+document.addEventListener('click', (event) => {
+  if (event.target.id === 'load-more-btn-list' || event.target.parentElement.id === 'load-more-btn-list') {
+    console.log('loadMoreBtnList');
+    loadMoreMoviesInList();
+  }
+});
+
 const noShowModalCreateList = () => {
   document.getElementById('modal-custom-list').classList.remove('show-flex');
   document.getElementById('modal-input').value = '';

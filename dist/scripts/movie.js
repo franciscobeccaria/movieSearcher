@@ -462,7 +462,7 @@ const firebaseListener = () => {
     });
 };
 
-const loadListData = (listName) => {
+const loadListData = (listName, sum) => {
   console.log('loadListData');
   // onSnapshot
   firebase
@@ -473,7 +473,6 @@ const loadListData = (listName) => {
     .doc(listName.replace(/-/g, ' '))
     .onSnapshot(function (doc) {
       const billboard = document.getElementById('billboard');
-      billboard.innerHTML = '';
       console.log(doc.data().list.length);
       if (doc.data().list.length === 0) {
         billboard.innerHTML = `
@@ -486,22 +485,87 @@ const loadListData = (listName) => {
                                   <div class="no-results big-button-only-info"><p>No results found</p></div>
                                 </div>`;
       } else {
-        doc.data().list.forEach(function (eachMovie) {
+        if (sum === undefined) {
+          console.log('sumUndefined', sum, doc.data().list.length);
+          if (doc.data().list.length > sumMoviesToLoadInList) {
+            document.getElementById('load-more-btn-list').classList.remove('no-show');
+          }
+          billboard.innerHTML = '';
+          doc
+            .data()
+            .list.slice(0, sumMoviesToLoadInList)
+            .forEach(function (eachMovie) {
+              //console.log(eachMovie);
+              if (eachMovie.id === '-100') {
+                console.log('encontramos al impostor');
+              } else {
+                drawListData(eachMovie);
+              }
+            });
+        } else {
+          console.log('sumDefined', sum, doc.data().list.length);
+          if (
+            parseInt(sum) >= doc.data().list.length
+            /* sum == doc.data().list.length ||
+            doc.data().list.length == parseInt(sum) - 1 ||
+            doc.data().list.length == parseInt(sum) - 2 */
+          ) {
+            document.getElementById('load-more-btn-list').classList.add('no-show');
+          }
+          console.log(sum);
+          let x = sum - sumMoviesToLoadInList;
+          doc
+            .data()
+            .list.slice(x, sum)
+            .forEach(function (eachMovie) {
+              //console.log(eachMovie);
+              if (eachMovie.id === '-100') {
+                console.log('encontramos al impostor');
+              } else {
+                drawListData(eachMovie);
+              }
+            });
+        }
+
+        /* doc.data().list.forEach(function (eachMovie) {
           //console.log(eachMovie);
           if (eachMovie.id === '-100') {
             console.log('encontramos al impostor');
           } else {
             drawListData(eachMovie);
           }
-        });
+        }); */
       }
     });
 };
 
+// Cantidad de peliculas que quiero se carguen en la carga inicial de cada lista. Después iran de este numero en este numero.
+// Ejemplo: 20. 20,40,60,80,etc.
+let sumMoviesToLoadInList = 20;
+
+const loadMoreMoviesInList = () => {
+  const listName = new URLSearchParams(window.location.search).get('list');
+  let sumInURL = new URLSearchParams(window.location.search).get('sum');
+  let newSum;
+  if (sumInURL === null) {
+    newSum = sumMoviesToLoadInList.toString() * 2;
+  } else {
+    newSum = parseInt(sumInURL) + sumMoviesToLoadInList;
+  }
+  /*   if (totalPages == newSum) {
+    loadMoreBtn.classList.add('no-show');
+  } */
+  let queryParams = new URLSearchParams(window.location.search);
+  queryParams.set('sum', newSum);
+  history.replaceState(null, null, '?' + queryParams.toString());
+  const sum = new URLSearchParams(window.location.search).get('sum');
+  loadListData(listName, sum);
+};
+
 const drawListData = (data) => {
-  console.log(data.title);
+  //console.log(data.title);
   const billboard = document.getElementById('billboard');
-  console.log(billboard);
+  //console.log(billboard);
   let posterSrc;
   if (data.poster === null) {
     posterSrc = './img/posters/not-found-image-15383864787lu.jpg';
@@ -546,7 +610,7 @@ const drawMainContent = (listName) => {
 
             </div>
             <div class="load-more-container">
-                <button class="big-button no-show"><p>Load More ></p></button>
+                <button id="load-more-btn-list" class="big-button no-show"><p>Load More ></p></button>
             </div>
   `;
   mainContainer.innerHTML = mainContent;
