@@ -83,81 +83,42 @@ $(() => {
   $('#btnCreateCustomList').click(async () => {
     console.log('tocaste el boton de crear custom list');
     const newListName = $('#modal-input').val();
+    const input = document.getElementById('modal-input');
     console.log(newListName);
-    // Código para crear una nueva lista. La validación de si está creada o no la lista, done.
-    try {
-      const array = { list: [] };
-      const userUid = firebase.auth().currentUser.uid;
-      let docRef = firebase
-        .firestore()
-        .collection('accounts')
-        .doc(firebase.auth().currentUser.uid)
-        .collection('lists')
-        .doc(newListName);
-      docRef
-        .get()
-        .then(function (doc) {
-          if (doc.exists) {
-            console.log('Ya está creada una lista con ese nombre');
-            showToastMessage('Ya está creada una lista con ese nombre');
-          } else {
-            // acá podría ir un showLoader. Pero es complicado hacerlo. ToDo.
-            docRef.set(array);
-            noShowModalCreateList();
-          }
-        })
-        .catch(function (error) {
-          console.log('Error getting document:', error);
-        });
-    } catch (error) {
-      // Código para leer data de una lista
-      /* try {
-      let docRef = firebase
-        .firestore()
-        .collection('accounts')
-        .doc(firebase.auth().currentUser.uid)
-        .collection('user')
-        .doc('WantToSee');
-      docRef
-        .get()
-        .then(function (doc) {
-          if (doc.exists) {
-            doc.data().SeenIt.forEach((movie) => {
-              console.log(movie.id, movie.title);
-            });
-          } else {
-            console.log('el documento no existe.');
-          }
-        })
-        .catch(function (error) {
-          console.log('Error getting document:', error);
-        });
-    } */
-      // Codigo para agregar pelicula a una lista
-      /* try {
-      let docRef = firebase.firestore().collection('accounts').doc(firebase.auth().currentUser.uid);
-      docRef
-        .get()
-        .then(function (doc) {
-          if (doc.exists) {
-            docRef
-              .collection('user')
-              .doc('WantToSee')
-              .update({
-                list: firebase.firestore.FieldValue.arrayUnion({ title: movieTitle, id: movieId }),
-              });
-            console.log(doc.data());
-          } else {
-            console.log('el documento no existe.');
-          }
-        })
-        .catch(function (error) {
-          console.log('Error getting document:', error);
-        });
-    } */ console.error(
-        error
-      );
-      Materialize.toast(error.message, 4000);
+    const pattern = new RegExp('^[A-Za-z0-9 ]+$', 'i');
+    if (!pattern.test(input.value)) {
+      //console.log('tiene');
+      showToastMessage('You can use only letters, numbers and spaces in the Listname');
+    } else {
+      // Código para crear una nueva lista. La validación de si está creada o no la lista, done.
+      try {
+        const array = { list: [] };
+        const userUid = firebase.auth().currentUser.uid;
+        let docRef = firebase
+          .firestore()
+          .collection('accounts')
+          .doc(firebase.auth().currentUser.uid)
+          .collection('lists')
+          .doc(newListName);
+        docRef
+          .get()
+          .then(function (doc) {
+            if (doc.exists) {
+              console.log('Ya está creada una lista con ese nombre');
+              showToastMessage('Ya está creada una lista con ese nombre');
+            } else {
+              // acá podría ir un showLoader. Pero es complicado hacerlo. ToDo.
+              docRef.set(array);
+              noShowModalCreateList();
+            }
+          })
+          .catch(function (error) {
+            console.log('Error getting document:', error);
+          });
+      } catch (error) {
+        console.error(error);
+        Materialize.toast(error.message, 4000);
+      }
     }
   });
 

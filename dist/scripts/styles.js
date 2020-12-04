@@ -171,3 +171,24 @@ const successfulLogin = () => {
     window.location.pathname = '/index.html';
   });
 };
+
+document.getElementById('btnChangePassword').addEventListener('click', () => {
+  sendResetPassWordEmail();
+});
+
+const sendResetPassWordEmail = () => {
+  var auth = firebase.auth();
+  var emailAddress = firebase.auth().currentUser.email;
+
+  auth
+    .sendPasswordResetEmail(emailAddress)
+    .then(function () {
+      // Email sent.
+      showToastMessage('Verify your email to change your password.');
+    })
+    .catch(function (error) {
+      // An error happened.
+      console.log(error);
+      showToastMessage(`Error: ${error}`);
+    });
+};

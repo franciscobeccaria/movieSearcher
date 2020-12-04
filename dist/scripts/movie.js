@@ -308,22 +308,27 @@ const addMovieToList = (data, list) => {
 };
 
 const loadCustomListsCreated = async () => {
-  await firebase
-    .firestore()
-    .collection('accounts')
-    .doc(firebase.auth().currentUser.uid)
-    .collection('lists')
-    .get()
-    .then(function (querySnapshot) {
-      document.getElementById('modal-custom-lists-results').innerHTML = '';
-      querySnapshot.forEach(function (doc) {
-        let arrayMovieId = [];
-        doc.data().list.forEach(function (eachMovie) {
-          arrayMovieId.push(eachMovie.id);
+  if (firebase.auth().currentUser === null) {
+    document.getElementById('modal-custom-list').classList.remove('show-flex');
+    showToastMessage('Login to use this feature');
+  } else {
+    await firebase
+      .firestore()
+      .collection('accounts')
+      .doc(firebase.auth().currentUser.uid)
+      .collection('lists')
+      .get()
+      .then(function (querySnapshot) {
+        document.getElementById('modal-custom-lists-results').innerHTML = '';
+        querySnapshot.forEach(function (doc) {
+          let arrayMovieId = [];
+          doc.data().list.forEach(function (eachMovie) {
+            arrayMovieId.push(eachMovie.id);
+          });
+          drawCustomListsCreated(doc.id, arrayMovieId);
         });
-        drawCustomListsCreated(doc.id, arrayMovieId);
       });
-    });
+  }
 };
 
 const drawCustomListsCreated = (listName, arrayMovieId) => {
@@ -391,29 +396,30 @@ const drawMyLists = (listName) => {
 };
 
 const firebaseListener = () => {
-  firebase
-    .firestore()
-    .collection('accounts')
-    .doc(firebase.auth().currentUser.uid)
-    .collection('lists')
-    .doc('WantToSee')
-    .onSnapshot(function (doc) {
-      //console.log('snapshot WantToSee');
-      const movieIdinURL = new URLSearchParams(window.location.search).get('id');
-      let arrayMovieId = [];
-      doc.data().list.forEach(function (eachMovie) {
-        arrayMovieId.push(eachMovie.id);
-        //console.log(arrayMovieId);
-        if (arrayMovieId.includes(parseInt(movieIdinURL))) {
-          console.log('remove unchecked y add checked');
-          document.getElementById('btnWantToSee').classList.remove('unchecked');
-          document.getElementById('btnWantToSee').classList.add('checked');
-        } else {
-          //console.log('remove checked y add unchecked');
-          document.getElementById('btnWantToSee').classList.remove('checked');
-          document.getElementById('btnWantToSee').classList.add('unchecked');
-        }
-        /*         if (eachMovie.id === parseInt(movieIdinURL) && document.getElementById('btnWantToSee').classList.contains('unchecked')) {
+  if (firebase.auth().currentUser !== null) {
+    firebase
+      .firestore()
+      .collection('accounts')
+      .doc(firebase.auth().currentUser.uid)
+      .collection('lists')
+      .doc('WantToSee')
+      .onSnapshot(function (doc) {
+        //console.log('snapshot WantToSee');
+        const movieIdinURL = new URLSearchParams(window.location.search).get('id');
+        let arrayMovieId = [];
+        doc.data().list.forEach(function (eachMovie) {
+          arrayMovieId.push(eachMovie.id);
+          //console.log(arrayMovieId);
+          if (arrayMovieId.includes(parseInt(movieIdinURL))) {
+            console.log('remove unchecked y add checked');
+            document.getElementById('btnWantToSee').classList.remove('unchecked');
+            document.getElementById('btnWantToSee').classList.add('checked');
+          } else {
+            //console.log('remove checked y add unchecked');
+            document.getElementById('btnWantToSee').classList.remove('checked');
+            document.getElementById('btnWantToSee').classList.add('unchecked');
+          }
+          /*         if (eachMovie.id === parseInt(movieIdinURL) && document.getElementById('btnWantToSee').classList.contains('unchecked')) {
         console.log('remove unchecked y add checked');
         document.getElementById('btnWantToSee').classList.remove('unchecked');
         document.getElementById('btnWantToSee').classList.add('checked');
@@ -423,32 +429,32 @@ const firebaseListener = () => {
         document.getElementById('btnWantToSee').classList.remove('checked');
         document.getElementById('btnWantToSee').classList.add('unchecked');
       } */
+        });
       });
-    });
-  firebase
-    .firestore()
-    .collection('accounts')
-    .doc(firebase.auth().currentUser.uid)
-    .collection('lists')
-    .doc('SeenIt')
-    .onSnapshot(function (doc) {
-      //console.log('snapshot SeenIt');
-      //console.log(doc.data());
-      const movieIdinURL = new URLSearchParams(window.location.search).get('id');
-      let arrayMovieId = [];
-      doc.data().list.forEach(function (eachMovie) {
-        arrayMovieId.push(eachMovie.id);
-        //console.log(arrayMovieId);
-        if (arrayMovieId.includes(parseInt(movieIdinURL))) {
-          //console.log('remove unchecked y add checked');
-          document.getElementById('btnSeenIt').classList.remove('unchecked');
-          document.getElementById('btnSeenIt').classList.add('checked');
-        } else {
-          //console.log('remove checked y add unchecked');
-          document.getElementById('btnSeenIt').classList.remove('checked');
-          document.getElementById('btnSeenIt').classList.add('unchecked');
-        }
-        /*         if (eachMovie.id === parseInt(movieIdinURL) && document.getElementById('btnWantToSee').classList.contains('unchecked')) {
+    firebase
+      .firestore()
+      .collection('accounts')
+      .doc(firebase.auth().currentUser.uid)
+      .collection('lists')
+      .doc('SeenIt')
+      .onSnapshot(function (doc) {
+        //console.log('snapshot SeenIt');
+        //console.log(doc.data());
+        const movieIdinURL = new URLSearchParams(window.location.search).get('id');
+        let arrayMovieId = [];
+        doc.data().list.forEach(function (eachMovie) {
+          arrayMovieId.push(eachMovie.id);
+          //console.log(arrayMovieId);
+          if (arrayMovieId.includes(parseInt(movieIdinURL))) {
+            //console.log('remove unchecked y add checked');
+            document.getElementById('btnSeenIt').classList.remove('unchecked');
+            document.getElementById('btnSeenIt').classList.add('checked');
+          } else {
+            //console.log('remove checked y add unchecked');
+            document.getElementById('btnSeenIt').classList.remove('checked');
+            document.getElementById('btnSeenIt').classList.add('unchecked');
+          }
+          /*         if (eachMovie.id === parseInt(movieIdinURL) && document.getElementById('btnWantToSee').classList.contains('unchecked')) {
         console.log('remove unchecked y add checked');
         document.getElementById('btnWantToSee').classList.remove('unchecked');
         document.getElementById('btnWantToSee').classList.add('checked');
@@ -458,8 +464,11 @@ const firebaseListener = () => {
         document.getElementById('btnWantToSee').classList.remove('checked');
         document.getElementById('btnWantToSee').classList.add('unchecked');
       } */
+        });
       });
-    });
+  } else {
+    showToastMessage('Login to use this feature');
+  }
 };
 
 const loadListData = (listName, sum) => {
@@ -680,68 +689,75 @@ const changeListnameSelected = () => {
 
   let listSelectedData = [];
 
-  // obtenemos información de listSelected y la guardamos en listSelectedData
-  firebase
-    .firestore()
-    .collection('accounts')
-    .doc(firebase.auth().currentUser.uid)
-    .collection('lists')
-    .doc(listName.replace(/-/g, ' '))
-    .get()
-    .then(function (doc) {
-      if (doc.exists) {
-        console.log('Document data:', doc.data().list);
-        listSelectedData = doc.data().list;
-        console.log(listSelectedData);
-        const array = { list: listSelectedData };
-        const userUid = firebase.auth().currentUser.uid;
-        let docRef = firebase
-          .firestore()
-          .collection('accounts')
-          .doc(firebase.auth().currentUser.uid)
-          .collection('lists')
-          .doc(newName);
-        docRef
-          .get()
-          .then(function (doc) {
-            if (doc.exists) {
-              console.log('Ya está creada una lista con ese nombre');
-              showToastMessage('Ya está creada una lista con ese nombre');
-            } else {
-              // acá podría ir un showLoader. Pero es complicado hacerlo. ToDo.
-              docRef.set(array);
-              //noShowModalCreateList();
-              firebase
-                .firestore()
-                .collection('accounts')
-                .doc(firebase.auth().currentUser.uid)
-                .collection('lists')
-                .doc(listName.replace(/-/g, ' '))
-                .delete()
-                .then(function () {
-                  console.log('List successfully deleted!');
-                  const listName = new URLSearchParams(window.location.search).get('list');
-                  console.log(listName);
-                  console.log(newName.replace(/ /g, '-'));
-                  let queryParams = new URLSearchParams(window.location.search);
-                  queryParams.set('list', newName.replace(/ /g, '-'));
-                  history.replaceState(null, null, '?' + queryParams.toString());
-                  location.reload();
-                })
-                .catch(function (error) {
-                  console.error('Error removing document: ', error);
-                });
-            }
-          })
-          .catch(function (error) {
-            console.log('Error getting document:', error);
-          });
-      } else {
-        // doc.data() will be undefined in this case
-        console.log('No such document!');
-      }
-    })
-    .catch(function (error) {
-      console.log('Error getting document:', error);
-    });
+  const input = document.getElementById('modal-input');
+  const pattern = new RegExp('^[A-Za-z0-9 ]+$', 'i');
+  if (!pattern.test(input.value)) {
+    //console.log('tiene');
+    showToastMessage('You can use only letters, numbers and spaces in the Listname');
+  } else {
+    // obtenemos información de listSelected y la guardamos en listSelectedData
+    firebase
+      .firestore()
+      .collection('accounts')
+      .doc(firebase.auth().currentUser.uid)
+      .collection('lists')
+      .doc(listName.replace(/-/g, ' '))
+      .get()
+      .then(function (doc) {
+        if (doc.exists) {
+          console.log('Document data:', doc.data().list);
+          listSelectedData = doc.data().list;
+          console.log(listSelectedData);
+          const array = { list: listSelectedData };
+          const userUid = firebase.auth().currentUser.uid;
+          let docRef = firebase
+            .firestore()
+            .collection('accounts')
+            .doc(firebase.auth().currentUser.uid)
+            .collection('lists')
+            .doc(newName);
+          docRef
+            .get()
+            .then(function (doc) {
+              if (doc.exists) {
+                console.log('Ya está creada una lista con ese nombre');
+                showToastMessage('Ya está creada una lista con ese nombre');
+              } else {
+                // acá podría ir un showLoader. Pero es complicado hacerlo. ToDo.
+                docRef.set(array);
+                //noShowModalCreateList();
+                firebase
+                  .firestore()
+                  .collection('accounts')
+                  .doc(firebase.auth().currentUser.uid)
+                  .collection('lists')
+                  .doc(listName.replace(/-/g, ' '))
+                  .delete()
+                  .then(function () {
+                    console.log('List successfully deleted!');
+                    const listName = new URLSearchParams(window.location.search).get('list');
+                    console.log(listName);
+                    console.log(newName.replace(/ /g, '-'));
+                    let queryParams = new URLSearchParams(window.location.search);
+                    queryParams.set('list', newName.replace(/ /g, '-'));
+                    history.replaceState(null, null, '?' + queryParams.toString());
+                    location.reload();
+                  })
+                  .catch(function (error) {
+                    console.error('Error removing document: ', error);
+                  });
+              }
+            })
+            .catch(function (error) {
+              console.log('Error getting document:', error);
+            });
+        } else {
+          // doc.data() will be undefined in this case
+          console.log('No such document!');
+        }
+      })
+      .catch(function (error) {
+        console.log('Error getting document:', error);
+      });
+  }
 };
