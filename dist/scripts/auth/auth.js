@@ -1,15 +1,10 @@
 class Autenticacion {
   async autEmailPass(email, password) {
     try {
-      const result = await firebase
-        .auth()
-        .signInWithEmailAndPassword(email, password);
+      const result = await firebase.auth().signInWithEmailAndPassword(email, password);
 
       if (result.user.emailVerified) {
-        let docRef = firebase
-          .firestore()
-          .collection('accounts')
-          .doc(result.user.uid);
+        let docRef = firebase.firestore().collection('accounts').doc(result.user.uid).collection('lists').doc('WantToSee');
         docRef
           .get()
           .then(function (doc) {
@@ -18,25 +13,18 @@ class Autenticacion {
               successfulLogin();
             } else {
               const userUid = result.user.uid;
-              const arrays = { WantToSee: [], SeenIt: [] };
+              const array = {
+                list: [{ id: '-100', title: 'sin esto no anda', poster: '/aaaa.jpg', release: '0000' }],
+              };
               const userInfo = {
                 name: result.user.displayName,
                 email: result.user.email,
                 uid: userUid,
                 provider: result.user.providerData[0].providerId,
               };
-              firebase
-                .firestore()
-                .collection('accounts')
-                .doc(userUid)
-                .set(arrays);
-              firebase
-                .firestore()
-                .collection('accounts')
-                .doc(userUid)
-                .collection('user')
-                .doc('info')
-                .set(userInfo);
+              firebase.firestore().collection('accounts').doc(userUid).collection('lists').doc('WantToSee').set(array);
+              firebase.firestore().collection('accounts').doc(userUid).collection('lists').doc('SeenIt').set(array);
+              firebase.firestore().collection('accounts').doc(userUid).collection('user').doc('info').set(userInfo);
               successfulLogin();
             }
           })
@@ -46,7 +34,7 @@ class Autenticacion {
       }
 
       if (result.user.emailVerified) {
-        showLoader();
+        showLoader('main-login-page');
         return result;
       }
 
@@ -61,9 +49,7 @@ class Autenticacion {
 
   async createUserEmailPass(email, password, firstname, lastname) {
     try {
-      const result = await firebase
-        .auth()
-        .createUserWithEmailAndPassword(email, password);
+      const result = await firebase.auth().createUserWithEmailAndPassword(email, password);
 
       await result.user.updateProfile({
         displayName: firstname + ' ' + lastname,
@@ -92,37 +78,29 @@ class Autenticacion {
       const result = await firebase.auth().signInWithPopup(provider);
 
       if (result) {
-        let docRef = firebase
-          .firestore()
-          .collection('accounts')
-          .doc(result.user.uid);
+        let docRef = firebase.firestore().collection('accounts').doc(result.user.uid).collection('lists').doc('WantToSee');
         docRef
           .get()
           .then(function (doc) {
+            console.log(doc);
+            console.log(doc.data());
             if (doc.exists) {
               console.log(doc.data());
               successfulLogin();
             } else {
               const userUid = result.user.uid;
-              const arrays = { WantToSee: [], SeenIt: [] };
+              const array = {
+                list: [{ id: '-100', title: 'sin esto no anda', poster: '/aaaa.jpg', release: '0000' }],
+              };
               const userInfo = {
                 name: result.user.displayName,
                 email: result.user.email,
                 uid: userUid,
                 provider: result.user.providerData[0].providerId,
               };
-              firebase
-                .firestore()
-                .collection('accounts')
-                .doc(userUid)
-                .set(arrays);
-              firebase
-                .firestore()
-                .collection('accounts')
-                .doc(userUid)
-                .collection('user')
-                .doc('info')
-                .set(userInfo);
+              firebase.firestore().collection('accounts').doc(userUid).collection('lists').doc('WantToSee').set(array);
+              firebase.firestore().collection('accounts').doc(userUid).collection('lists').doc('SeenIt').set(array);
+              firebase.firestore().collection('accounts').doc(userUid).collection('user').doc('info').set(userInfo);
               successfulLogin();
             }
           })
@@ -132,7 +110,7 @@ class Autenticacion {
       }
 
       if (result) {
-        showLoader();
+        showLoader('main-login-page');
         return result.user;
       }
 
@@ -150,37 +128,29 @@ class Autenticacion {
       const result = await firebase.auth().signInWithPopup(provider);
 
       if (result) {
-        let docRef = firebase
-          .firestore()
-          .collection('accounts')
-          .doc(result.user.uid);
+        let docRef = firebase.firestore().collection('accounts').doc(result.user.uid).collection('lists').doc('WantToSee');
         docRef
           .get()
           .then(function (doc) {
+            console.log(doc);
+            console.log(doc.data());
             if (doc.exists) {
               console.log(doc.data());
               successfulLogin();
             } else {
               const userUid = result.user.uid;
-              const arrays = { WantToSee: [], SeenIt: [] };
+              const array = {
+                list: [{ id: '-100', title: 'sin esto no anda', poster: '/aaaa.jpg', release: '0000' }],
+              };
               const userInfo = {
                 name: result.user.displayName,
                 email: result.user.email,
                 uid: userUid,
                 provider: result.user.providerData[0].providerId,
               };
-              firebase
-                .firestore()
-                .collection('accounts')
-                .doc(userUid)
-                .set(arrays);
-              firebase
-                .firestore()
-                .collection('accounts')
-                .doc(userUid)
-                .collection('user')
-                .doc('info')
-                .set(userInfo);
+              firebase.firestore().collection('accounts').doc(userUid).collection('lists').doc('WantToSee').set(array);
+              firebase.firestore().collection('accounts').doc(userUid).collection('lists').doc('SeenIt').set(array);
+              firebase.firestore().collection('accounts').doc(userUid).collection('user').doc('info').set(userInfo);
               successfulLogin();
             }
           })
@@ -190,7 +160,7 @@ class Autenticacion {
       }
 
       if (result) {
-        showLoader();
+        showLoader('main-login-page');
         return result.user;
       }
 

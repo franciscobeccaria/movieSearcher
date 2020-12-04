@@ -21,21 +21,12 @@ const loadData = async (searchURL) => {
       loadMoreBtn.classList.add('no-show');
     }
     if (response.data.total_results === 0) {
-      document
-        .getElementById('no-results-container')
-        .classList.remove('no-show');
-      document
-        .getElementById('billboard-title-container')
-        .classList.add('no-show');
+      document.getElementById('no-results-container').classList.remove('no-show');
+      document.getElementById('billboard-title-container').classList.add('no-show');
     } else {
       document.getElementById('no-results-container').classList.add('no-show');
       element.forEach((movie) => {
-        const eachMovie = new Movie(
-          movie.title,
-          movie.poster_path,
-          movie.release_date,
-          movie.id
-        );
+        const eachMovie = new Movie(movie.title, movie.poster_path, movie.release_date, movie.id);
         draw(eachMovie);
       });
     }
@@ -43,7 +34,9 @@ const loadData = async (searchURL) => {
 };
 
 const draw = (data) => {
+  console.log(data.title);
   const billboard = document.getElementById('billboard');
+  console.log(billboard);
   let posterSrc;
   if (data.poster === null) {
     posterSrc = './img/posters/not-found-image-15383864787lu.jpg';
@@ -59,9 +52,7 @@ const draw = (data) => {
   const movieContainer = `
       <a class="movie" href="${movieCardLink}">
             <div class="poster-container"><img class="poster-image" src="${posterSrc}" alt="Movie image"></div>
-            <div class="movie-text-container"><p class="movie-text">${
-              data.title
-            } (${data.releaseDate.slice(0, 4)})</p></div>
+            <div class="movie-text-container"><p class="movie-text">${data.title} (${data.releaseDate.slice(0, 4)})</p></div>
         </a>
     `;
   billboard.insertAdjacentHTML('beforeend', movieContainer);
@@ -138,17 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 class MoviePage extends Movie {
-  constructor(
-    title,
-    poster,
-    releaseDate,
-    movieId,
-    score,
-    genres,
-    certification,
-    duration,
-    overview
-  ) {
+  constructor(title, poster, releaseDate, movieId, score, genres, certification, duration, overview) {
     super(title, poster, releaseDate, movieId);
     this.score = score;
     this.genres = genres;
@@ -158,11 +139,7 @@ class MoviePage extends Movie {
   }
 }
 
-const loadMoviePageData = async (
-  searchURL,
-  recommendationsURL,
-  releaseDateURL
-) => {
+const loadMoviePageData = async (searchURL, recommendationsURL, releaseDateURL) => {
   const requestOne = axios.get(searchURL);
   const requestTwo = axios.get(recommendationsURL);
   const requestThree = axios.get(releaseDateURL);
@@ -198,20 +175,11 @@ const loadMoviePageData = async (
       drawMoviePage(moviePage);
 
       if (recommendationsData.length === 0) {
-        document
-          .getElementById('no-results-container')
-          .classList.remove('no-show');
+        document.getElementById('no-results-container').classList.remove('no-show');
       } else {
-        document
-          .getElementById('no-results-container')
-          .classList.add('no-show');
+        document.getElementById('no-results-container').classList.add('no-show');
         recommendationsData.forEach((movie) => {
-          const eachMovie = new Movie(
-            movie.title,
-            movie.poster_path,
-            movie.release_date,
-            movie.id
-          );
+          const eachMovie = new Movie(movie.title, movie.poster_path, movie.release_date, movie.id);
           draw(eachMovie);
         });
       }
@@ -254,27 +222,19 @@ const drawMoviePage = (data) => {
                     <h1 class="movie-title">${data.title}</h1>
                 </div>
                 <div class="movie-buttons-container">
-                    <button id="btn-probando" class="middle-button"><p>Want To See</p></button>
-                    <button class="middle-button"><p>Seen It</p></button>
-                    <button id="btn-custom-list" class="middle-button"><p id="p-custom-list">Custom List</p></button>
+                    <button id="btnWantToSee" class="middle-button unchecked"><p>Want To See</p></button>
+                    <button id="btnSeenIt" class="middle-button unchecked""><p>Seen It</p></button>
+                    <button id="btn-custom-list" class="middle-button unchecked"><p id="p-custom-list">Custom List</p></button>
                 </div>
                 <div class="movie-data-container">
-                    <span class="movie-data movie-rating">${
-                      data.score * 10
-                    }%</span>
-                    <span class="movie-data movie-genre">${genreArray
-                      .toString()
-                      .replace(/,/g, ' - ')}</span>
+                    <span class="movie-data movie-rating">${data.score * 10}%</span>
+                    <span class="movie-data movie-genre">${genreArray.toString().replace(/,/g, ' - ')}</span>
                     <span class="movie-data movie-rated">${certification}</span>
-                    <span class="movie-data movie-year">${
-                      data.releaseDate
-                    }</span>
+                    <span class="movie-data movie-year">${data.releaseDate}</span>
                     <span class="movie-data movie-duration">${duration}</span>
                 </div>
                 <div class="movie-description-title"><p>Overview</p></div>
-                <div class="movie-description-container"><p>${
-                  data.overview
-                }</p></div>
+                <div class="movie-description-container"><p>${data.overview}</p></div>
             </div>
     `;
   moviePageContainer.innerHTML = movieContainer;
@@ -282,6 +242,7 @@ const drawMoviePage = (data) => {
 
 document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('main-movie-page')) {
+    showLoader('movie-container');
     const movieId = new URLSearchParams(window.location.search).get('id');
     if (movieId) {
       const searchURL = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}&language=en-US`;
@@ -289,6 +250,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const releaseDateURL = `https://api.themoviedb.org/3/movie/${movieId}/release_dates?api_key=${apiKey}`;
       // releaseDateURL is for get Certification. Example: PG-13 or +18.
       loadMoviePageData(searchURL, recommendationsURL, releaseDateURL);
+      //console.log(firebase.auth());
+      //firebaseListener();
+      //loadCustomListsCreated();
     }
   }
 });
@@ -297,9 +261,347 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('main-login-page')) {
     const from = new URLSearchParams(window.location.search).get('from');
     if (from && from === 'signup') {
-      document
-        .getElementById('verification-message')
-        .classList.remove('no-show');
+      document.getElementById('verification-message').classList.remove('no-show');
     }
   }
 });
+
+const loadMovieData = async (searchURL, list, job) => {
+  const response = await axios.get(searchURL).then(function (response) {
+    const data = response.data;
+    console.log('loadMovieData');
+    if (job === 'add') {
+      console.log('loadMovieData add');
+      addMovieToList(data, list);
+    }
+    if (job === 'remove') {
+      console.log('loadMovieData remove');
+      removeMovieFromList(data, list);
+    }
+  });
+};
+
+const addMovieToList = (data, list) => {
+  console.log('addMovieToList executed');
+  let docRef = firebase.firestore().collection('accounts').doc(firebase.auth().currentUser.uid).collection('lists').doc(list);
+  docRef
+    .get()
+    .then(function (doc) {
+      if (doc.exists) {
+        docRef.update({
+          list: firebase.firestore.FieldValue.arrayUnion({
+            title: data.title,
+            id: data.id,
+            poster: data.poster_path,
+            release: data.release_date,
+          }),
+        });
+        showToastMessage('Se agregó a la lista correctamente');
+      } else {
+        console.log(doc.data());
+        console.log('el documento no existe.');
+      }
+    })
+    .catch(function (error) {
+      console.log('Error getting document:', error);
+    });
+};
+
+const loadCustomListsCreated = async () => {
+  await firebase
+    .firestore()
+    .collection('accounts')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('lists')
+    .get()
+    .then(function (querySnapshot) {
+      document.getElementById('modal-custom-lists-results').innerHTML = '';
+      querySnapshot.forEach(function (doc) {
+        let arrayMovieId = [];
+        doc.data().list.forEach(function (eachMovie) {
+          arrayMovieId.push(eachMovie.id);
+        });
+        drawCustomListsCreated(doc.id, arrayMovieId);
+      });
+    });
+};
+
+const drawCustomListsCreated = (listName, arrayMovieId) => {
+  const container = document.getElementById('modal-custom-lists-results');
+  const movieIdinURL = new URLSearchParams(window.location.search).get('id');
+  let checked;
+  if (arrayMovieId.includes(parseInt(movieIdinURL))) {
+    checked = 'checked-custom';
+  } else {
+    checked = 'unchecked-custom';
+  }
+  const listContainer = `
+                  <button class="list-select background-color-main ${checked}"><p>${listName}</p></button>
+    `;
+  container.insertAdjacentHTML('beforeend', listContainer);
+};
+
+const removeMovieFromList = (data, list) => {
+  let docRef = firebase.firestore().collection('accounts').doc(firebase.auth().currentUser.uid).collection('lists').doc(list);
+  docRef.get().then(function (doc) {
+    if (doc.exists) {
+      docRef.update({
+        list: firebase.firestore.FieldValue.arrayRemove({
+          title: data.title,
+          id: data.id,
+          poster: data.poster_path,
+          release: data.release_date,
+        }),
+      });
+      showToastMessage('Se eliminó de la lista correctamente');
+    } else {
+      console.log(doc.data());
+      console.log('el documento no existe.');
+    }
+  });
+};
+
+const loadMyLists = () => {
+  firebase
+    .firestore()
+    .collection('accounts')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('lists')
+    .onSnapshot(function (querySnapshot) {
+      var lists = [];
+      const container = document.getElementById('my-lists-info-container');
+      container.innerHTML = '';
+      querySnapshot.forEach(function (doc) {
+        lists.push(doc.id);
+        drawMyLists(doc.id);
+      });
+      console.log('Lists: ', lists);
+    });
+};
+
+const drawMyLists = (listName) => {
+  const container = document.getElementById('my-lists-info-container');
+  const listContainer = `
+              <button class="list-select" onclick="window.location.href='./list.html?list=${listName.replace(
+                /\s/g,
+                '-'
+              )}'"><p>${listName}</p></button>
+  `;
+  container.insertAdjacentHTML('beforeend', listContainer);
+};
+
+const firebaseListener = () => {
+  firebase
+    .firestore()
+    .collection('accounts')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('lists')
+    .doc('WantToSee')
+    .onSnapshot(function (doc) {
+      //console.log('snapshot WantToSee');
+      const movieIdinURL = new URLSearchParams(window.location.search).get('id');
+      let arrayMovieId = [];
+      doc.data().list.forEach(function (eachMovie) {
+        arrayMovieId.push(eachMovie.id);
+        //console.log(arrayMovieId);
+        if (arrayMovieId.includes(parseInt(movieIdinURL))) {
+          console.log('remove unchecked y add checked');
+          document.getElementById('btnWantToSee').classList.remove('unchecked');
+          document.getElementById('btnWantToSee').classList.add('checked');
+        } else {
+          //console.log('remove checked y add unchecked');
+          document.getElementById('btnWantToSee').classList.remove('checked');
+          document.getElementById('btnWantToSee').classList.add('unchecked');
+        }
+        /*         if (eachMovie.id === parseInt(movieIdinURL) && document.getElementById('btnWantToSee').classList.contains('unchecked')) {
+        console.log('remove unchecked y add checked');
+        document.getElementById('btnWantToSee').classList.remove('unchecked');
+        document.getElementById('btnWantToSee').classList.add('checked');
+      }
+      if (document.getElementById('btnWantToSee').classList.contains('checked')) {
+        console.log('remove checked y add unchecked');
+        document.getElementById('btnWantToSee').classList.remove('checked');
+        document.getElementById('btnWantToSee').classList.add('unchecked');
+      } */
+      });
+    });
+  firebase
+    .firestore()
+    .collection('accounts')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('lists')
+    .doc('SeenIt')
+    .onSnapshot(function (doc) {
+      //console.log('snapshot SeenIt');
+      //console.log(doc.data());
+      const movieIdinURL = new URLSearchParams(window.location.search).get('id');
+      let arrayMovieId = [];
+      doc.data().list.forEach(function (eachMovie) {
+        arrayMovieId.push(eachMovie.id);
+        //console.log(arrayMovieId);
+        if (arrayMovieId.includes(parseInt(movieIdinURL))) {
+          //console.log('remove unchecked y add checked');
+          document.getElementById('btnSeenIt').classList.remove('unchecked');
+          document.getElementById('btnSeenIt').classList.add('checked');
+        } else {
+          //console.log('remove checked y add unchecked');
+          document.getElementById('btnSeenIt').classList.remove('checked');
+          document.getElementById('btnSeenIt').classList.add('unchecked');
+        }
+        /*         if (eachMovie.id === parseInt(movieIdinURL) && document.getElementById('btnWantToSee').classList.contains('unchecked')) {
+        console.log('remove unchecked y add checked');
+        document.getElementById('btnWantToSee').classList.remove('unchecked');
+        document.getElementById('btnWantToSee').classList.add('checked');
+      }
+      if (document.getElementById('btnWantToSee').classList.contains('checked')) {
+        console.log('remove checked y add unchecked');
+        document.getElementById('btnWantToSee').classList.remove('checked');
+        document.getElementById('btnWantToSee').classList.add('unchecked');
+      } */
+      });
+    });
+};
+
+const loadListData = (listName) => {
+  console.log('loadListData');
+  // onSnapshot
+  firebase
+    .firestore()
+    .collection('accounts')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('lists')
+    .doc(listName.replace(/-/g, ' '))
+    .onSnapshot(function (doc) {
+      const billboard = document.getElementById('billboard');
+      billboard.innerHTML = '';
+      console.log(doc.data().list.length);
+      if (doc.data().list.length === 0) {
+        billboard.innerHTML = `
+                                <div id="no-results-container" class="no-results-container">
+                                  <div class="no-results big-button-only-info"><p>No results found</p></div>
+                                </div>`;
+      } else if (doc.data().list.length === 1 && doc.data().list[0].id) {
+        billboard.innerHTML = `
+                                <div id="no-results-container" class="no-results-container">
+                                  <div class="no-results big-button-only-info"><p>No results found</p></div>
+                                </div>`;
+      } else {
+        doc.data().list.forEach(function (eachMovie) {
+          //console.log(eachMovie);
+          if (eachMovie.id === '-100') {
+            console.log('encontramos al impostor');
+          } else {
+            drawListData(eachMovie);
+          }
+        });
+      }
+    });
+};
+
+const drawListData = (data) => {
+  console.log(data.title);
+  const billboard = document.getElementById('billboard');
+  console.log(billboard);
+  let posterSrc;
+  if (data.poster === null) {
+    posterSrc = './img/posters/not-found-image-15383864787lu.jpg';
+  } else {
+    posterSrc = `https://image.tmdb.org/t/p/w220_and_h330_face/${data.poster}`;
+  }
+  let movieCardLink;
+  if (document.getElementById('main-index')) {
+    movieCardLink = `./html/movie.html?id=${data.id.toString()}`;
+  } else {
+    movieCardLink = `./movie.html?id=${data.id.toString()}`;
+  }
+  const movieContainer = `
+      <a class="movie" href="${movieCardLink}">
+            <div class="poster-container"><img class="poster-image" src="${posterSrc}" alt="Movie image"></div>
+            <div class="movie-text-container"><p class="movie-text">${data.title} (${data.release.slice(0, 4)})</p></div>
+        </a>
+    `;
+  billboard.insertAdjacentHTML('beforeend', movieContainer);
+};
+
+const drawMainContent = (listName) => {
+  console.log('drawMainContent');
+  let question;
+  if (listName === 'WantToSee' || listName === 'SeenIt') {
+    question = '';
+  } else {
+    question = `
+            <div class="list-buttons-container">
+                <button id="btn-edit-list" class="middle-button"><p>Edit list</p></button>
+                <button id="btn-delete-list" class="middle-button"><p>Delete list</p></button>
+            </div>
+    `;
+  }
+  const mainContainer = document.getElementById('billboard-container');
+  const mainContent = `
+            <div class="billboard-title-container">
+                <h4 class="billbord-title">${listName.replace(/-/g, ' ')} ></h4>
+            </div>
+            ${question}
+            <div id="billboard" class="billboard">
+
+            </div>
+            <div class="load-more-container">
+                <button class="big-button no-show"><p>Load More ></p></button>
+            </div>
+  `;
+  mainContainer.innerHTML = mainContent;
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (document.getElementById('main-list-page')) {
+    showLoader('billboard-container');
+    const listName = new URLSearchParams(window.location.search).get('list');
+    if (listName) {
+      drawMainContent(listName);
+      console.log('deberia funcionar');
+    }
+  }
+});
+
+const firebaseLoadedListData = () => {
+  if (document.getElementById('main-list-page')) {
+    const listName = new URLSearchParams(window.location.search).get('list');
+    if (listName) {
+      console.log('deberia funcionar');
+      loadListData(listName);
+    }
+  }
+};
+
+const deleteListSelected = () => {
+  const listName = new URLSearchParams(window.location.search).get('list');
+  firebase
+    .firestore()
+    .collection('accounts')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('lists')
+    .doc(listName.replace(/-/g, ' '))
+    .delete()
+    .then(function () {
+      console.log('List successfully deleted!');
+      const mainContainer = document.getElementById('main-list-page');
+      mainContainer.innerHTML = '';
+      mainContainer.innerHTML = `
+      <div class="login-container">
+         <div class="login-info-container">
+             <div class="login-social-title-container">
+                 <h3>Document successfully deleted go to Homepage ></h3>
+             </div>
+             <div class="login-buttons-container">
+                 <button id="goToHomeBtnFromDeletedList" class="middle-button"><p>Home</p></button>
+             </div>
+         </div>
+     </div>
+`;
+      history.replaceState &&
+        history.replaceState(null, '', location.pathname + location.search.replace(/[\?&]list=[^&]+/, '').replace(/^&/, '?'));
+    })
+    .catch(function (error) {
+      console.error('Error removing document: ', error);
+    });
+};

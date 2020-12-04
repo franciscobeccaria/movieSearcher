@@ -126,7 +126,7 @@ h4 {
 }
 
 .loaderContainer {
-  width: 100vw;
+  width: 100%;
   height: 400px;
   padding-top: 100px;
   -webkit-box-flex: 0;
@@ -180,4 +180,84 @@ h4 {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
+}
+
+.background-color-main {
+  background: $color-main;
+}
+
+.unchecked {
+  background: transparent;
+  border: 1.5px solid $color-white;
+  &:hover {
+    background-color: $color-main;
+    border: 1.5px transparent solid;
+  }
+}
+
+.unchecked > p {
+  color: $color-white;
+}
+
+.unchecked:hover > p {
+  color: black;
+}
+
+.unchecked-custom {
+  background: transparent;
+  border: 1.5px solid $color-white;
+  &:hover {
+    background-color: $color-main;
+    border: 1.5px transparent solid;
+  }
+}
+
+.unchecked-custom > p {
+  color: $color-white;
+}
+
+.unchecked-custom:hover > p {
+  color: black;
+}
+
+.checked {
+  background-color: $color-main;
+  border: 1.5px transparent solid;
+  &:hover {
+    background: transparent;
+    border: 1.5px solid $color-white;
+  }
+}
+
+.checked > p {
+  color: black;
+}
+
+.checked:hover > p {
+  color: $color-white;
+}
+
+.checked-custom {
+  background-color: $color-main;
+  border: 1.5px transparent solid;
+  &:hover {
+    background: transparent;
+    border: 1.5px solid $color-white;
+  }
+}
+
+.checked-custom > p {
+  color: black;
+}
+
+.checked-custom:hover > p {
+  color: $color-white;
+}
+
+.min-height-main {
+  min-height: 70vh;
+}
+
+.margin-1rem {
+  margin: 1rem;
 }

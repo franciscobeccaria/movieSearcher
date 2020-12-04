@@ -4,9 +4,7 @@ document.getElementById('menu-icon').addEventListener('click', () => {
 });
 
 document.getElementById('close-icon').addEventListener('click', () => {
-  document
-    .getElementById('item-container')
-    .classList.remove('show-mobile-menu');
+  document.getElementById('item-container').classList.remove('show-mobile-menu');
 });
 
 // Show Modal Custom List
@@ -16,17 +14,17 @@ document.getElementById('close-icon').addEventListener('click', () => {
   }); */
 
 document.addEventListener('click', (event) => {
-  if (
-    event.target.id === 'btn-custom-list' ||
-    event.target.id === 'p-custom-list'
-  ) {
+  if (event.target.id === 'btn-custom-list' || event.target.id === 'p-custom-list') {
     document.getElementById('modal-custom-list').classList.add('show-flex');
+    showLoader('modal-custom-lists-results');
+    loadCustomListsCreated();
   }
 });
 
 document.addEventListener('click', (event) => {
   if (event.target.classList.contains('modal-container')) {
     document.getElementById('modal-custom-list').classList.remove('show-flex');
+    document.getElementById('modal-delete-list').classList.remove('show-flex');
     document.getElementById('modal-searcher-input').value = '';
   }
 });
@@ -39,16 +37,38 @@ if (document.getElementById('btn-create-list')) {
   });
 
   document.addEventListener('click', (event) => {
+    if (event.target.id === 'btn-edit-list' || event.target.parentElement.id === 'btn-edit-list') {
+      document.getElementById('modal-custom-list').classList.add('show-flex');
+    }
+    if (event.target.id === 'btn-delete-list' || event.target.parentElement.id === 'btn-delete-list') {
+      document.getElementById('modal-delete-list').classList.add('show-flex');
+    }
+    if (event.target.id === 'btn-delete-list-no' || event.target.parentElement.id === 'btn-delete-list-no') {
+      document.getElementById('modal-delete-list').classList.remove('show-flex');
+    }
+    if (event.target.id === 'btn-delete-list-yes' || event.target.parentElement.id === 'btn-delete-list-yes') {
+      document.getElementById('modal-delete-list').classList.remove('show-flex');
+      deleteListSelected();
+    }
+    if (event.target.id === 'goToHomeBtnFromDeletedList' || event.target.parentElement.id === 'goToHomeBtnFromDeletedList') {
+      window.location.pathname = '/index.html';
+    }
+  });
+
+  document.addEventListener('click', (event) => {
     if (event.target.classList.contains('modal-container')) {
-      document
-        .getElementById('modal-custom-list')
-        .classList.remove('show-flex');
+      document.getElementById('modal-custom-list').classList.remove('show-flex');
       document.getElementById('modal-input').value = '';
     }
   });
 }
 
-console.log('works');
+const noShowModalCreateList = () => {
+  document.getElementById('modal-custom-list').classList.remove('show-flex');
+  document.getElementById('modal-input').value = '';
+};
+
+//console.log('works styles.js');
 
 // function insertParams. to global use.
 function insertParam(key, value) {
@@ -97,13 +117,26 @@ const goToIndex = () => {
   window.location.pathname = '/index.html';
 };
 
-const showLoader = () => {
-  const main = document.getElementById('main-login-page');
+const showLoader = (containerId) => {
+  console.log('show loader');
+  const main = document.getElementById(containerId);
   main.innerHTML = '';
   main.innerHTML = `
               <div class="loaderContainer">
                 <div class="loader"></div>
-              </div>;
+              </div>
+`;
+};
+
+const showLoaderDisplayNone = (containerId, containerIdToNone) => {
+  console.log('show loader');
+  const mainToNone = document.getElementById(containerIdToNone);
+  const main = document.getElementById(containerId);
+  mainToNone.style.display = 'none';
+  main.innerHTML = `
+              <div class="loaderContainer">
+                <div class="loader"></div>
+              </div>
 `;
 };
 
