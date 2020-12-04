@@ -224,7 +224,7 @@ const drawMoviePage = (data) => {
                 <div class="movie-buttons-container">
                     <button id="btnWantToSee" class="middle-button unchecked"><p>Want To See</p></button>
                     <button id="btnSeenIt" class="middle-button unchecked""><p>Seen It</p></button>
-                    <button id="btn-custom-list" class="middle-button unchecked"><p id="p-custom-list">Custom List</p></button>
+                    <button id="btn-custom-list" class="middle-button unchecked"><p id="p-custom-list">All My Lists</p></button>
                 </div>
                 <div class="movie-data-container">
                     <span class="movie-data movie-rating">${data.score * 10}%</span>
@@ -480,7 +480,7 @@ const loadListData = (listName) => {
                                 <div id="no-results-container" class="no-results-container">
                                   <div class="no-results big-button-only-info"><p>No results found</p></div>
                                 </div>`;
-      } else if (doc.data().list.length === 1 && doc.data().list[0].id) {
+      } else if (doc.data().list.length === 1 && doc.data().list[0].id === '-100') {
         billboard.innerHTML = `
                                 <div id="no-results-container" class="no-results-container">
                                   <div class="no-results big-button-only-info"><p>No results found</p></div>
@@ -531,7 +531,7 @@ const drawMainContent = (listName) => {
   } else {
     question = `
             <div class="list-buttons-container">
-                <button id="btn-edit-list" class="middle-button"><p>Edit list</p></button>
+                <button id="btn-edit-list" class="middle-button"><p>Edit listname</p></button>
                 <button id="btn-delete-list" class="middle-button"><p>Delete list</p></button>
             </div>
     `;
@@ -603,5 +603,81 @@ const deleteListSelected = () => {
     })
     .catch(function (error) {
       console.error('Error removing document: ', error);
+    });
+};
+
+// tiene que obtener la información de la lista seleccionada, crear una nueva lista con el nuevo nombre, insertar la info de la lista seleccionada y borrar la lista seleccionada
+const changeListnameSelected = () => {
+  const listName = new URLSearchParams(window.location.search).get('list');
+  console.log(listName.replace(/-/g, ' '));
+
+  const newName = document.getElementById('modal-input').value;
+  console.log(newName);
+
+  let listSelectedData = [];
+
+  // obtenemos información de listSelected y la guardamos en listSelectedData
+  firebase
+    .firestore()
+    .collection('accounts')
+    .doc(firebase.auth().currentUser.uid)
+    .collection('lists')
+    .doc(listName.replace(/-/g, ' '))
+    .get()
+    .then(function (doc) {
+      if (doc.exists) {
+        console.log('Document data:', doc.data().list);
+        listSelectedData = doc.data().list;
+        console.log(listSelectedData);
+        const array = { list: listSelectedData };
+        const userUid = firebase.auth().currentUser.uid;
+        let docRef = firebase
+          .firestore()
+          .collection('accounts')
+          .doc(firebase.auth().currentUser.uid)
+          .collection('lists')
+          .doc(newName);
+        docRef
+          .get()
+          .then(function (doc) {
+            if (doc.exists) {
+              console.log('Ya está creada una lista con ese nombre');
+              showToastMessage('Ya está creada una lista con ese nombre');
+            } else {
+              // acá podría ir un showLoader. Pero es complicado hacerlo. ToDo.
+              docRef.set(array);
+              //noShowModalCreateList();
+              firebase
+                .firestore()
+                .collection('accounts')
+                .doc(firebase.auth().currentUser.uid)
+                .collection('lists')
+                .doc(listName.replace(/-/g, ' '))
+                .delete()
+                .then(function () {
+                  console.log('List successfully deleted!');
+                  const listName = new URLSearchParams(window.location.search).get('list');
+                  console.log(listName);
+                  console.log(newName.replace(/ /g, '-'));
+                  let queryParams = new URLSearchParams(window.location.search);
+                  queryParams.set('list', newName.replace(/ /g, '-'));
+                  history.replaceState(null, null, '?' + queryParams.toString());
+                  location.reload();
+                })
+                .catch(function (error) {
+                  console.error('Error removing document: ', error);
+                });
+            }
+          })
+          .catch(function (error) {
+            console.log('Error getting document:', error);
+          });
+      } else {
+        // doc.data() will be undefined in this case
+        console.log('No such document!');
+      }
+    })
+    .catch(function (error) {
+      console.log('Error getting document:', error);
     });
 };

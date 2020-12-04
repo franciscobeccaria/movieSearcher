@@ -83,8 +83,6 @@ $(() => {
   $('#btnCreateCustomList').click(async () => {
     console.log('tocaste el boton de crear custom list');
     const newListName = $('#modal-input').val();
-    const movieId = 155;
-    const movieTitle = 'Carrie';
     console.log(newListName);
     // Código para crear una nueva lista. La validación de si está creada o no la lista, done.
     try {

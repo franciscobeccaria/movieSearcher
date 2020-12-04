@@ -53,6 +53,10 @@ if (document.getElementById('btn-create-list')) {
     if (event.target.id === 'goToHomeBtnFromDeletedList' || event.target.parentElement.id === 'goToHomeBtnFromDeletedList') {
       window.location.pathname = '/index.html';
     }
+    if (event.target.id === 'save-new-listname' || event.target.parentElement.id === 'save-new-listname') {
+      document.getElementById('modal-custom-list').classList.remove('show-flex');
+      changeListnameSelected();
+    }
   });
 
   document.addEventListener('click', (event) => {
