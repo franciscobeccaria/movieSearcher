@@ -2,17 +2,12 @@
 document.getElementById('menu-icon').addEventListener('click', () => {
   document.getElementById('item-container').classList.add('show-mobile-menu');
 });
-
+// Close Mobile Menu
 document.getElementById('close-icon').addEventListener('click', () => {
   document.getElementById('item-container').classList.remove('show-mobile-menu');
 });
 
-// Show Modal Custom List
-/* if (document.getElementById('btn-custom-list')) {
-  document.getElementById('btn-custom-list').addEventListener('click', () => {
-    document.getElementById('modal-custom-list').classList.add('show-flex');
-  }); */
-
+// Show AllMyLists in MoviePage.
 document.addEventListener('click', (event) => {
   if (event.target.id === 'btn-custom-list' || event.target.id === 'p-custom-list') {
     document.getElementById('modal-custom-list').classList.add('show-flex');
@@ -21,6 +16,7 @@ document.addEventListener('click', (event) => {
   }
 });
 
+// Close Modal if we click outside the modal.
 document.addEventListener('click', (event) => {
   if (event.target.classList.contains('modal-container')) {
     document.getElementById('modal-custom-list').classList.remove('show-flex');
@@ -28,31 +24,30 @@ document.addEventListener('click', (event) => {
     document.getElementById('modal-searcher-input').value = '';
   }
 });
-//}
 
-// Show Modal Create List & Show Modal Edit List
+// Show Modal Create List (inside are more functions: Modal Edit List, Modal Delete List)
 if (document.getElementById('btn-create-list')) {
   document.getElementById('btn-create-list').addEventListener('click', () => {
     document.getElementById('modal-custom-list').classList.add('show-flex');
   });
-
+  // Show Modal Edit List
   document.addEventListener('click', (event) => {
     if (event.target.id === 'btn-edit-list' || event.target.parentElement.id === 'btn-edit-list') {
       document.getElementById('modal-custom-list').classList.add('show-flex');
-    }
+    } // Show Modal Delete List
     if (event.target.id === 'btn-delete-list' || event.target.parentElement.id === 'btn-delete-list') {
       document.getElementById('modal-delete-list').classList.add('show-flex');
-    }
+    } // Close Modal Delete List if we click no-button
     if (event.target.id === 'btn-delete-list-no' || event.target.parentElement.id === 'btn-delete-list-no') {
       document.getElementById('modal-delete-list').classList.remove('show-flex');
-    }
+    } // DeleteListSelected listener. If we click DeleteListSelected is executed.
     if (event.target.id === 'btn-delete-list-yes' || event.target.parentElement.id === 'btn-delete-list-yes') {
       document.getElementById('modal-delete-list').classList.remove('show-flex');
       deleteListSelected();
-    }
+    } // If we click button with id goToHomeFromDeletedList, it redirects to Homepage.
     if (event.target.id === 'goToHomeBtnFromDeletedList' || event.target.parentElement.id === 'goToHomeBtnFromDeletedList') {
       window.location.pathname = '/index.html';
-    }
+    } // ChangeListnameSelected listener. If we click ChangeListnameSelected is executed.
     if (event.target.id === 'save-new-listname' || event.target.parentElement.id === 'save-new-listname') {
       document.getElementById('modal-custom-list').classList.remove('show-flex');
       changeListnameSelected();
@@ -67,6 +62,7 @@ if (document.getElementById('btn-create-list')) {
   });
 }
 
+// Listener of LoadMoreBtn in ListPage. If we click in, loadMoreMoviesInList is executed.
 document.addEventListener('click', (event) => {
   if (event.target.id === 'load-more-btn-list' || event.target.parentElement.id === 'load-more-btn-list') {
     console.log('loadMoreBtnList');
@@ -74,12 +70,11 @@ document.addEventListener('click', (event) => {
   }
 });
 
+// noShowModalCreateList is executed.
 const noShowModalCreateList = () => {
   document.getElementById('modal-custom-list').classList.remove('show-flex');
   document.getElementById('modal-input').value = '';
 };
-
-//console.log('works styles.js');
 
 // function insertParams. to global use.
 function insertParam(key, value) {
@@ -110,6 +105,7 @@ function insertParam(key, value) {
   document.location.search = params;
 }
 
+// showToastMessage function. to global use.
 function showToastMessage(message) {
   // Get the snackbar DIV
   var x = document.getElementById('snackbar');
@@ -124,10 +120,12 @@ function showToastMessage(message) {
   }, 3000);
 }
 
+// goToIndex function.
 const goToIndex = () => {
   window.location.pathname = '/index.html';
 };
 
+// showLoader function.
 const showLoader = (containerId) => {
   console.log('show loader');
   const main = document.getElementById(containerId);
@@ -139,6 +137,7 @@ const showLoader = (containerId) => {
 `;
 };
 
+// showLoaderDisplayNone function. similar showLoader but with differences.
 const showLoaderDisplayNone = (containerId, containerIdToNone) => {
   console.log('show loader');
   const mainToNone = document.getElementById(containerIdToNone);
@@ -151,6 +150,7 @@ const showLoaderDisplayNone = (containerId, containerIdToNone) => {
 `;
 };
 
+// successfulLogin function. After you login, this is executed and change the HTML.
 const successfulLogin = () => {
   const main = document.getElementById('main-login-page');
   main.innerHTML = '';
@@ -172,10 +172,12 @@ const successfulLogin = () => {
   });
 };
 
+// Listener of ChangePassword button.
 document.getElementById('btnChangePassword').addEventListener('click', () => {
   sendResetPassWordEmail();
 });
 
+// sendResetPasswordEmail function. It's executed when you click btnChangePassword.
 const sendResetPassWordEmail = () => {
   var auth = firebase.auth();
   var emailAddress = firebase.auth().currentUser.email;

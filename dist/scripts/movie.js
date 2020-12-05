@@ -15,7 +15,6 @@ let totalPages;
 const loadData = async (searchURL) => {
   const response = await axios.get(searchURL).then(function (response) {
     const element = response.data.results;
-    console.log(response.data.results);
     totalPages = response.data.total_pages;
     if (totalPages == 1) {
       loadMoreBtn.classList.add('no-show');
@@ -90,6 +89,7 @@ const search = () => {
   loadData(searchURL);
 };
 
+// Load More Movies after Search
 const loadMoreBtn = document.getElementById('load-more-btn');
 if (loadMoreBtn !== null) {
   loadMoreBtn.addEventListener('click', () => {
@@ -128,6 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// MoviePage
 class MoviePage extends Movie {
   constructor(title, poster, releaseDate, movieId, score, genres, certification, duration, overview) {
     super(title, poster, releaseDate, movieId);
@@ -257,6 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// Show from Signup message
 document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('main-login-page')) {
     const from = new URLSearchParams(window.location.search).get('from');
@@ -266,6 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// Load Movie Data and add/remove from list
 const loadMovieData = async (searchURL, list, job) => {
   const response = await axios.get(searchURL).then(function (response) {
     const data = response.data;
@@ -281,6 +284,7 @@ const loadMovieData = async (searchURL, list, job) => {
   });
 };
 
+// Add Movie to List
 const addMovieToList = (data, list) => {
   console.log('addMovieToList executed');
   let docRef = firebase.firestore().collection('accounts').doc(firebase.auth().currentUser.uid).collection('lists').doc(list);
@@ -307,6 +311,7 @@ const addMovieToList = (data, list) => {
     });
 };
 
+// Load Custom Lists Created in MoviePage
 const loadCustomListsCreated = async () => {
   if (firebase.auth().currentUser === null) {
     document.getElementById('modal-custom-list').classList.remove('show-flex');
@@ -330,7 +335,7 @@ const loadCustomListsCreated = async () => {
       });
   }
 };
-
+// Draw Custom Lists Created in MoviePage
 const drawCustomListsCreated = (listName, arrayMovieId) => {
   const container = document.getElementById('modal-custom-lists-results');
   const movieIdinURL = new URLSearchParams(window.location.search).get('id');
@@ -346,6 +351,7 @@ const drawCustomListsCreated = (listName, arrayMovieId) => {
   container.insertAdjacentHTML('beforeend', listContainer);
 };
 
+// Remove Movie from List
 const removeMovieFromList = (data, list) => {
   let docRef = firebase.firestore().collection('accounts').doc(firebase.auth().currentUser.uid).collection('lists').doc(list);
   docRef.get().then(function (doc) {
@@ -366,6 +372,7 @@ const removeMovieFromList = (data, list) => {
   });
 };
 
+// Load and Draw My Lists in MyListsPage
 const loadMyLists = () => {
   firebase
     .firestore()
@@ -395,6 +402,8 @@ const drawMyLists = (listName) => {
   container.insertAdjacentHTML('beforeend', listContainer);
 };
 
+// Firebase Listener: Listen changes in WantToSee/SeenIt. To change a class to change the styles and functionality.
+// Depending on whether the selected movie is in WantToSee/SeenIt or not.
 const firebaseListener = () => {
   if (firebase.auth().currentUser !== null) {
     firebase
@@ -471,6 +480,9 @@ const firebaseListener = () => {
   }
 };
 
+// FUNCTIONS for ListPage
+
+// LoadListData in ListPage
 const loadListData = (listName, sum) => {
   console.log('loadListData');
   // onSnapshot
@@ -552,6 +564,7 @@ const loadListData = (listName, sum) => {
 // Ejemplo: 20. 20,40,60,80,etc.
 let sumMoviesToLoadInList = 20;
 
+// LoadMoreMovies in ListPage
 const loadMoreMoviesInList = () => {
   const listName = new URLSearchParams(window.location.search).get('list');
   let sumInURL = new URLSearchParams(window.location.search).get('sum');
@@ -571,6 +584,7 @@ const loadMoreMoviesInList = () => {
   loadListData(listName, sum);
 };
 
+// DrawListData in ListPage
 const drawListData = (data) => {
   //console.log(data.title);
   const billboard = document.getElementById('billboard');
@@ -596,6 +610,7 @@ const drawListData = (data) => {
   billboard.insertAdjacentHTML('beforeend', movieContainer);
 };
 
+// DrawMainContent in ListPage
 const drawMainContent = (listName) => {
   console.log('drawMainContent');
   let question;
@@ -624,7 +639,7 @@ const drawMainContent = (listName) => {
   `;
   mainContainer.innerHTML = mainContent;
 };
-
+// Listener of DrawMainContent for ListPage. It's executed when DOMContentLoaded.
 document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('main-list-page')) {
     showLoader('billboard-container');
@@ -635,7 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
-
+// Listener of LoadListData for ListPage. It's executed when Firebase recognize the CurrentUser is logued.
 const firebaseLoadedListData = () => {
   if (document.getElementById('main-list-page')) {
     const listName = new URLSearchParams(window.location.search).get('list');
@@ -646,6 +661,7 @@ const firebaseLoadedListData = () => {
   }
 };
 
+// DeleteListSelected in ListPage.
 const deleteListSelected = () => {
   const listName = new URLSearchParams(window.location.search).get('list');
   firebase
@@ -679,6 +695,7 @@ const deleteListSelected = () => {
     });
 };
 
+// ChangeListnameSelected in ListPage.
 // tiene que obtener la información de la lista seleccionada, crear una nueva lista con el nuevo nombre, insertar la info de la lista seleccionada y borrar la lista seleccionada
 const changeListnameSelected = () => {
   const listName = new URLSearchParams(window.location.search).get('list');
@@ -761,3 +778,47 @@ const changeListnameSelected = () => {
       });
   }
 };
+
+// Probando objetos + Firestore:
+class City {
+  constructor(name, state, country) {
+    this.name = name;
+    this.state = state;
+    this.country = country;
+  }
+  toString() {
+    return this.name + ', ' + this.state + ', ' + this.country;
+  }
+}
+
+// Firestore data converter
+var cityConverter = {
+  toFirestore: function (city) {
+    return {
+      name: city.name,
+      state: city.state,
+      country: city.country,
+    };
+  },
+  fromFirestore: function (snapshot, options) {
+    const data = snapshot.data(options);
+    return new City(data.name, data.state, data.country);
+  },
+};
+
+// Set with cityConverter
+firebase.firestore().collection('cities').doc('LA').withConverter(cityConverter).set(new City('Los Angeles', 'CA', 'USA'));
+
+// Yo meto este array en .set(array)
+/* {
+  list: [{ id: '-100', title: 'sin esto no anda', poster: '/aaaa.jpg', release: '0000' }];
+} */
+// Esto me hace pensar que quizas cada pelicula debería haber sido un documento. Y cada lista una colección.
+// Pero como decía que cuanto menos anidaciones más rápido lo hice de la forma que lo hice.
+// Quizas, Documento Pelicula y Colección Lista me hubiera ayudado más a trabajar una ordenada POO.
+// Colección uid, Documento Listas, Colección Lista, Documento Pelicula
+// Colección Listas, Documento uid, Colección Lista, Documento Pelicula. Esta hubiera sido la mejor opción.
+// Y problablemente el documento Pelicula hubiera sido el movieId.
+
+// Ahora que me acuerdo yo hice que Documento Lista porque un Documento es un objeto. En JS se entrega como un objeto.
+// Y la forma en la que está creada en TMDb es un array. Igual se podría haber hecho de la otra forma creo.

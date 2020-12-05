@@ -1,6 +1,7 @@
 $(() => {
   const objAuth = new Autenticacion();
 
+  // btn Listener of Register.
   $('#btnEmailRegister').click(async () => {
     const firstname = $('#firstnameReg').val();
     const lastname = $('#lastnameReg').val();
@@ -11,6 +12,7 @@ $(() => {
     //$('.modal').modal('close');
   });
 
+  // btn Listener of Login with Email+Pass
   $('#btnEmailLogin').click(async () => {
     const email = $('#emailLog').val();
     const password = $('#passwordLog').val();
@@ -27,6 +29,7 @@ $(() => {
     //$('.modal').modal('close');
   });
 
+  // btn Listener of Login with Google
   $('#btnGoogleLogin').click(async () => {
     const user = await objAuth.authGoogle();
     showToastMessage(`Bienvenido ${user.displayName}`);
@@ -36,6 +39,7 @@ $(() => {
     Materialize.toast(`Bienvenido ${user.displayName} !! `, 4000);
   });
 
+  // btn Listener of Login with Facebook
   $('#btnFacebookLogin').click(async () => {
     const user = await objAuth.authFacebook();
     showToastMessage(`Bienvenido ${user.displayName}`);
@@ -47,6 +51,7 @@ $(() => {
 
   // $("#authTwitter").click(() => objAuth.authCuentaFacebook());
 
+  // btn Listener of Signout button.
   $('#btnSignOut').click(async () => {
     try {
       console.log('tocaste el boton de cerrar sesión');
@@ -60,6 +65,7 @@ $(() => {
     }
   });
 
+  // btn Listener of ChangeName button.
   $('#btnUpdateName').click(async () => {
     console.log('tocaste el boton de cambiar nombre');
     const newName = $('#newNameInput').val();
@@ -80,6 +86,7 @@ $(() => {
     $('#modalSesion').modal('open'); */
   });
 
+  // btn Listener of CreateCustomList button.
   $('#btnCreateCustomList').click(async () => {
     console.log('tocaste el boton de crear custom list');
     const newListName = $('#modal-input').val();
@@ -122,6 +129,7 @@ $(() => {
     }
   });
 
+  // Checked & Unchecked functions. This is used to show if the MovieSelected is in the List, changing a class of the ListButton.
   document.addEventListener('click', (event) => {
     if (
       (event.target.id === 'btnWantToSee' && event.target.classList.contains('unchecked')) ||
@@ -194,6 +202,7 @@ $(() => {
     }
   });
 
+  // getListSelected, after getMovieSelected and then add/remove MovieSelected from ListSelected
   // debería llamarse obtiene info de la lista seleccionada y de la pelicula en la que estamos. Y que queremos hacer, añadir o remover.
   const addMovieToListFunction = async (listSelected, task) => {
     try {
@@ -207,6 +216,8 @@ $(() => {
     }
   };
 
+  // getCurrentUser if user is logued.
+  // Soluciona el error de poner una función de Firebase en DOMContentLoaded. Es como un DOMContentLoaded para Firebase.
   // Firebase observador del cambio de estado de auth
   // Si el user existe, o sea hay una sesión iniciada, cambiar texto de un boton a Salir y agrega foto del user.
   firebase.auth().onAuthStateChanged((user) => {
