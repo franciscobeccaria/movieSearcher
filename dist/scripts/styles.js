@@ -65,7 +65,6 @@ if (document.getElementById('btn-create-list')) {
 // Listener of LoadMoreBtn in ListPage. If we click in, loadMoreMoviesInList is executed.
 document.addEventListener('click', (event) => {
   if (event.target.id === 'load-more-btn-list' || event.target.parentElement.id === 'load-more-btn-list') {
-    console.log('loadMoreBtnList');
     loadMoreMoviesInList();
   }
 });
@@ -127,7 +126,6 @@ const goToIndex = () => {
 
 // showLoader function.
 const showLoader = (containerId) => {
-  console.log('show loader');
   const main = document.getElementById(containerId);
   main.innerHTML = '';
   main.innerHTML = `
@@ -139,7 +137,6 @@ const showLoader = (containerId) => {
 
 // showLoaderDisplayNone function. similar showLoader but with differences.
 const showLoaderDisplayNone = (containerId, containerIdToNone) => {
-  console.log('show loader');
   const mainToNone = document.getElementById(containerIdToNone);
   const main = document.getElementById(containerId);
   mainToNone.style.display = 'none';
@@ -167,7 +164,6 @@ const successfulLogin = () => {
         </div>
 `;
   document.getElementById('goToHomeBtn').addEventListener('click', () => {
-    console.log('goToHome executed');
     window.location.pathname = '/index.html';
   });
 };

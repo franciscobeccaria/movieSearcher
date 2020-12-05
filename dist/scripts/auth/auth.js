@@ -9,7 +9,6 @@ class Autenticacion {
           .get()
           .then(function (doc) {
             if (doc.exists) {
-              console.log(doc.data());
               successfulLogin();
             } else {
               const userUid = result.user.uid;
@@ -82,10 +81,7 @@ class Autenticacion {
         docRef
           .get()
           .then(function (doc) {
-            console.log(doc);
-            console.log(doc.data());
             if (doc.exists) {
-              console.log(doc.data());
               successfulLogin();
             } else {
               const userUid = result.user.uid;
@@ -132,10 +128,7 @@ class Autenticacion {
         docRef
           .get()
           .then(function (doc) {
-            console.log(doc);
-            console.log(doc.data());
             if (doc.exists) {
-              console.log(doc.data());
               successfulLogin();
             } else {
               const userUid = result.user.uid;
@@ -169,9 +162,5 @@ class Autenticacion {
       console.error(error);
       Materialize.toast(`Error al autenticarse con google: ${error} `, 4000);
     }
-  }
-
-  authTwitter() {
-    // TODO: Crear auth con twitter
   }
 }

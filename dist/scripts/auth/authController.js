@@ -9,7 +9,6 @@ $(() => {
     const password = $('#passwordReg').val();
     await objAuth.createUserEmailPass(email, password, firstname, lastname);
     window.location.href = window.location.href.slice(0, -12) + 'login.html?from=signup';
-    //$('.modal').modal('close');
   });
 
   // btn Listener of Login with Email+Pass
@@ -18,56 +17,40 @@ $(() => {
     const password = $('#passwordLog').val();
     const resp = await objAuth.autEmailPass(email, password);
     if (resp) {
-      //$('#avatar').attr('src', 'imagenes/usuario_auth.png');
-      showToastMessage(`Bienvenido ${resp.user.displayName}`);
-      //window.location.pathname = '/index.html';
+      showToastMessage(`Welcome ${resp.user.displayName}`);
       Materialize.toast(`Bienvenido ${resp.user.displayName}`, 5000);
     } else {
-      showToastMessage(`Por favor realiza la verificación de la cuenta`);
+      showToastMessage(`Verify your email`);
       Materialize.toast(`Por favor realiza la verificación de la cuenta`, 5000);
     }
-    //$('.modal').modal('close');
   });
 
   // btn Listener of Login with Google
   $('#btnGoogleLogin').click(async () => {
     const user = await objAuth.authGoogle();
-    showToastMessage(`Bienvenido ${user.displayName}`);
-    //window.location.pathname = '/index.html';
-    //$('#avatar').attr('src', user.photoURL);
-    //$('.modal').modal('close');
+    showToastMessage(`Welcome ${user.displayName}`);
     Materialize.toast(`Bienvenido ${user.displayName} !! `, 4000);
   });
 
   // btn Listener of Login with Facebook
   $('#btnFacebookLogin').click(async () => {
     const user = await objAuth.authFacebook();
-    showToastMessage(`Bienvenido ${user.displayName}`);
-    //window.location.pathname = '/index.html';
-    //$('#avatar').attr('src', user.photoURL);
-    //$('.modal').modal('close');
+    showToastMessage(`Welcome ${user.displayName}`);
     Materialize.toast(`Bienvenido ${user.displayName} !! `, 4000);
   });
-
-  // $("#authTwitter").click(() => objAuth.authCuentaFacebook());
 
   // btn Listener of Signout button.
   $('#btnSignOut').click(async () => {
     try {
-      console.log('tocaste el boton de cerrar sesión');
       firebase.auth().signOut();
-      //$('#avatar').attr('src', 'imagenes/usuario.png');
       window.location.pathname = '/index.html';
-      //Materialize.toast(`SignOut correcto`, 4000);
     } catch (error) {
       console.error(error);
-      //Materialize.toast(error.message, 4000);
     }
   });
 
   // btn Listener of ChangeName button.
   $('#btnUpdateName').click(async () => {
-    console.log('tocaste el boton de cambiar nombre');
     const newName = $('#newNameInput').val();
     try {
       const user = await firebase.auth().currentUser;
@@ -81,23 +64,16 @@ $(() => {
       console.error(error);
       Materialize.toast(error.message, 4000);
     }
-    /*     $('#emailSesion').val('');
-    $('#passwordSesion').val('');
-    $('#modalSesion').modal('open'); */
   });
 
   // btn Listener of CreateCustomList button.
   $('#btnCreateCustomList').click(async () => {
-    console.log('tocaste el boton de crear custom list');
     const newListName = $('#modal-input').val();
     const input = document.getElementById('modal-input');
-    console.log(newListName);
     const pattern = new RegExp('^[A-Za-z0-9 ]+$', 'i');
     if (!pattern.test(input.value)) {
-      //console.log('tiene');
       showToastMessage('You can use only letters, numbers and spaces in the Listname');
     } else {
-      // Código para crear una nueva lista. La validación de si está creada o no la lista, done.
       try {
         const array = { list: [] };
         const userUid = firebase.auth().currentUser.uid;
@@ -111,10 +87,8 @@ $(() => {
           .get()
           .then(function (doc) {
             if (doc.exists) {
-              console.log('Ya está creada una lista con ese nombre');
-              showToastMessage('Ya está creada una lista con ese nombre');
+              showToastMessage('There is already a list created with that name');
             } else {
-              // acá podría ir un showLoader. Pero es complicado hacerlo. ToDo.
               docRef.set(array);
               noShowModalCreateList();
             }
@@ -203,7 +177,6 @@ $(() => {
   });
 
   // getListSelected, after getMovieSelected and then add/remove MovieSelected from ListSelected
-  // debería llamarse obtiene info de la lista seleccionada y de la pelicula en la que estamos. Y que queremos hacer, añadir o remover.
   const addMovieToListFunction = async (listSelected, task) => {
     try {
       const list = listSelected;
@@ -217,6 +190,7 @@ $(() => {
   };
 
   // getCurrentUser if user is logued.
+  // Spanish comments:
   // Soluciona el error de poner una función de Firebase en DOMContentLoaded. Es como un DOMContentLoaded para Firebase.
   // Firebase observador del cambio de estado de auth
   // Si el user existe, o sea hay una sesión iniciada, cambiar texto de un boton a Salir y agrega foto del user.
@@ -227,13 +201,9 @@ $(() => {
         loadMyLists();
       }
       firebaseListener();
-      /*       firebaseListenerWantToSee();
-      firebaseListenerSeenIt(); */
-      console.log(user);
       $('#myUserContainer').removeClass('no-show');
       $('#myListsContainer').removeClass('no-show');
       $('#loginLinkContainer').addClass('no-show');
-      //$('#myUser').text('Edit User');
       $('#loguedEmail').text(user.email);
       $('#loguedFirstname').text(user.displayName);
       if (user.photoURL) {

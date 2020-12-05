@@ -33,9 +33,7 @@ const loadData = async (searchURL) => {
 };
 
 const draw = (data) => {
-  console.log(data.title);
   const billboard = document.getElementById('billboard');
-  console.log(billboard);
   let posterSrc;
   if (data.poster === null) {
     posterSrc = './img/posters/not-found-image-15383864787lu.jpg';
@@ -251,9 +249,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const releaseDateURL = `https://api.themoviedb.org/3/movie/${movieId}/release_dates?api_key=${apiKey}`;
       // releaseDateURL is for get Certification. Example: PG-13 or +18.
       loadMoviePageData(searchURL, recommendationsURL, releaseDateURL);
-      //console.log(firebase.auth());
-      //firebaseListener();
-      //loadCustomListsCreated();
     }
   }
 });
@@ -272,13 +267,10 @@ document.addEventListener('DOMContentLoaded', () => {
 const loadMovieData = async (searchURL, list, job) => {
   const response = await axios.get(searchURL).then(function (response) {
     const data = response.data;
-    console.log('loadMovieData');
     if (job === 'add') {
-      console.log('loadMovieData add');
       addMovieToList(data, list);
     }
     if (job === 'remove') {
-      console.log('loadMovieData remove');
       removeMovieFromList(data, list);
     }
   });
@@ -286,7 +278,6 @@ const loadMovieData = async (searchURL, list, job) => {
 
 // Add Movie to List
 const addMovieToList = (data, list) => {
-  console.log('addMovieToList executed');
   let docRef = firebase.firestore().collection('accounts').doc(firebase.auth().currentUser.uid).collection('lists').doc(list);
   docRef
     .get()
@@ -300,10 +291,10 @@ const addMovieToList = (data, list) => {
             release: data.release_date,
           }),
         });
-        showToastMessage('Se agregó a la lista correctamente');
+        showToastMessage('Added to the list successfully');
       } else {
         console.log(doc.data());
-        console.log('el documento no existe.');
+        console.log('the document not exists.');
       }
     })
     .catch(function (error) {
@@ -364,10 +355,10 @@ const removeMovieFromList = (data, list) => {
           release: data.release_date,
         }),
       });
-      showToastMessage('Se eliminó de la lista correctamente');
+      showToastMessage('It was correctly removed from the list');
     } else {
       console.log(doc.data());
-      console.log('el documento no existe.');
+      console.log('the document not exists.');
     }
   });
 };
@@ -387,7 +378,6 @@ const loadMyLists = () => {
         lists.push(doc.id);
         drawMyLists(doc.id);
       });
-      console.log('Lists: ', lists);
     });
 };
 
@@ -413,31 +403,17 @@ const firebaseListener = () => {
       .collection('lists')
       .doc('WantToSee')
       .onSnapshot(function (doc) {
-        //console.log('snapshot WantToSee');
         const movieIdinURL = new URLSearchParams(window.location.search).get('id');
         let arrayMovieId = [];
         doc.data().list.forEach(function (eachMovie) {
           arrayMovieId.push(eachMovie.id);
-          //console.log(arrayMovieId);
           if (arrayMovieId.includes(parseInt(movieIdinURL))) {
-            console.log('remove unchecked y add checked');
             document.getElementById('btnWantToSee').classList.remove('unchecked');
             document.getElementById('btnWantToSee').classList.add('checked');
           } else {
-            //console.log('remove checked y add unchecked');
             document.getElementById('btnWantToSee').classList.remove('checked');
             document.getElementById('btnWantToSee').classList.add('unchecked');
           }
-          /*         if (eachMovie.id === parseInt(movieIdinURL) && document.getElementById('btnWantToSee').classList.contains('unchecked')) {
-        console.log('remove unchecked y add checked');
-        document.getElementById('btnWantToSee').classList.remove('unchecked');
-        document.getElementById('btnWantToSee').classList.add('checked');
-      }
-      if (document.getElementById('btnWantToSee').classList.contains('checked')) {
-        console.log('remove checked y add unchecked');
-        document.getElementById('btnWantToSee').classList.remove('checked');
-        document.getElementById('btnWantToSee').classList.add('unchecked');
-      } */
         });
       });
     firebase
@@ -447,32 +423,17 @@ const firebaseListener = () => {
       .collection('lists')
       .doc('SeenIt')
       .onSnapshot(function (doc) {
-        //console.log('snapshot SeenIt');
-        //console.log(doc.data());
         const movieIdinURL = new URLSearchParams(window.location.search).get('id');
         let arrayMovieId = [];
         doc.data().list.forEach(function (eachMovie) {
           arrayMovieId.push(eachMovie.id);
-          //console.log(arrayMovieId);
           if (arrayMovieId.includes(parseInt(movieIdinURL))) {
-            //console.log('remove unchecked y add checked');
             document.getElementById('btnSeenIt').classList.remove('unchecked');
             document.getElementById('btnSeenIt').classList.add('checked');
           } else {
-            //console.log('remove checked y add unchecked');
             document.getElementById('btnSeenIt').classList.remove('checked');
             document.getElementById('btnSeenIt').classList.add('unchecked');
           }
-          /*         if (eachMovie.id === parseInt(movieIdinURL) && document.getElementById('btnWantToSee').classList.contains('unchecked')) {
-        console.log('remove unchecked y add checked');
-        document.getElementById('btnWantToSee').classList.remove('unchecked');
-        document.getElementById('btnWantToSee').classList.add('checked');
-      }
-      if (document.getElementById('btnWantToSee').classList.contains('checked')) {
-        console.log('remove checked y add unchecked');
-        document.getElementById('btnWantToSee').classList.remove('checked');
-        document.getElementById('btnWantToSee').classList.add('unchecked');
-      } */
         });
       });
   } else {
@@ -484,8 +445,6 @@ const firebaseListener = () => {
 
 // LoadListData in ListPage
 const loadListData = (listName, sum) => {
-  console.log('loadListData');
-  // onSnapshot
   firebase
     .firestore()
     .collection('accounts')
@@ -494,7 +453,6 @@ const loadListData = (listName, sum) => {
     .doc(listName.replace(/-/g, ' '))
     .onSnapshot(function (doc) {
       const billboard = document.getElementById('billboard');
-      console.log(doc.data().list.length);
       if (doc.data().list.length === 0) {
         billboard.innerHTML = `
                                 <div id="no-results-container" class="no-results-container">
@@ -507,7 +465,6 @@ const loadListData = (listName, sum) => {
                                 </div>`;
       } else {
         if (sum === undefined) {
-          console.log('sumUndefined', sum, doc.data().list.length);
           if (doc.data().list.length > sumMoviesToLoadInList) {
             document.getElementById('load-more-btn-list').classList.remove('no-show');
           }
@@ -516,52 +473,33 @@ const loadListData = (listName, sum) => {
             .data()
             .list.slice(0, sumMoviesToLoadInList)
             .forEach(function (eachMovie) {
-              //console.log(eachMovie);
               if (eachMovie.id === '-100') {
-                console.log('encontramos al impostor');
+                // Movie with id='-100' is for improve the use of FirebaseListener
               } else {
                 drawListData(eachMovie);
               }
             });
         } else {
-          console.log('sumDefined', sum, doc.data().list.length);
-          if (
-            parseInt(sum) >= doc.data().list.length
-            /* sum == doc.data().list.length ||
-            doc.data().list.length == parseInt(sum) - 1 ||
-            doc.data().list.length == parseInt(sum) - 2 */
-          ) {
+          if (parseInt(sum) >= doc.data().list.length) {
             document.getElementById('load-more-btn-list').classList.add('no-show');
           }
-          console.log(sum);
           let x = sum - sumMoviesToLoadInList;
           doc
             .data()
             .list.slice(x, sum)
             .forEach(function (eachMovie) {
-              //console.log(eachMovie);
               if (eachMovie.id === '-100') {
-                console.log('encontramos al impostor');
+                // Movie with id='-100' is for improve the use of FirebaseListener
               } else {
                 drawListData(eachMovie);
               }
             });
         }
-
-        /* doc.data().list.forEach(function (eachMovie) {
-          //console.log(eachMovie);
-          if (eachMovie.id === '-100') {
-            console.log('encontramos al impostor');
-          } else {
-            drawListData(eachMovie);
-          }
-        }); */
       }
     });
 };
 
-// Cantidad de peliculas que quiero se carguen en la carga inicial de cada lista. Después iran de este numero en este numero.
-// Ejemplo: 20. 20,40,60,80,etc.
+// How many movies going to show in each ListPage in the first charge.
 let sumMoviesToLoadInList = 20;
 
 // LoadMoreMovies in ListPage
@@ -574,9 +512,6 @@ const loadMoreMoviesInList = () => {
   } else {
     newSum = parseInt(sumInURL) + sumMoviesToLoadInList;
   }
-  /*   if (totalPages == newSum) {
-    loadMoreBtn.classList.add('no-show');
-  } */
   let queryParams = new URLSearchParams(window.location.search);
   queryParams.set('sum', newSum);
   history.replaceState(null, null, '?' + queryParams.toString());
@@ -586,9 +521,7 @@ const loadMoreMoviesInList = () => {
 
 // DrawListData in ListPage
 const drawListData = (data) => {
-  //console.log(data.title);
   const billboard = document.getElementById('billboard');
-  //console.log(billboard);
   let posterSrc;
   if (data.poster === null) {
     posterSrc = './img/posters/not-found-image-15383864787lu.jpg';
@@ -612,7 +545,6 @@ const drawListData = (data) => {
 
 // DrawMainContent in ListPage
 const drawMainContent = (listName) => {
-  console.log('drawMainContent');
   let question;
   if (listName === 'WantToSee' || listName === 'SeenIt') {
     question = '';
@@ -646,7 +578,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const listName = new URLSearchParams(window.location.search).get('list');
     if (listName) {
       drawMainContent(listName);
-      console.log('deberia funcionar');
     }
   }
 });
@@ -655,7 +586,6 @@ const firebaseLoadedListData = () => {
   if (document.getElementById('main-list-page')) {
     const listName = new URLSearchParams(window.location.search).get('list');
     if (listName) {
-      console.log('deberia funcionar');
       loadListData(listName);
     }
   }
@@ -696,23 +626,20 @@ const deleteListSelected = () => {
 };
 
 // ChangeListnameSelected in ListPage.
-// tiene que obtener la información de la lista seleccionada, crear una nueva lista con el nuevo nombre, insertar la info de la lista seleccionada y borrar la lista seleccionada
+// Obtain the data of ListSelected, create a newList with the newName and the data of ListSelected and delete the ListSelected.
 const changeListnameSelected = () => {
   const listName = new URLSearchParams(window.location.search).get('list');
-  console.log(listName.replace(/-/g, ' '));
 
   const newName = document.getElementById('modal-input').value;
-  console.log(newName);
 
   let listSelectedData = [];
 
   const input = document.getElementById('modal-input');
   const pattern = new RegExp('^[A-Za-z0-9 ]+$', 'i');
   if (!pattern.test(input.value)) {
-    //console.log('tiene');
     showToastMessage('You can use only letters, numbers and spaces in the Listname');
   } else {
-    // obtenemos información de listSelected y la guardamos en listSelectedData
+    // We obtain information from listSelected and store it in listSelectedData
     firebase
       .firestore()
       .collection('accounts')
@@ -722,9 +649,7 @@ const changeListnameSelected = () => {
       .get()
       .then(function (doc) {
         if (doc.exists) {
-          console.log('Document data:', doc.data().list);
           listSelectedData = doc.data().list;
-          console.log(listSelectedData);
           const array = { list: listSelectedData };
           const userUid = firebase.auth().currentUser.uid;
           let docRef = firebase
@@ -737,12 +662,10 @@ const changeListnameSelected = () => {
             .get()
             .then(function (doc) {
               if (doc.exists) {
-                console.log('Ya está creada una lista con ese nombre');
-                showToastMessage('Ya está creada una lista con ese nombre');
+                console.log('There is already a list created with that name');
+                showToastMessage('There is already a list created with that name');
               } else {
-                // acá podría ir un showLoader. Pero es complicado hacerlo. ToDo.
                 docRef.set(array);
-                //noShowModalCreateList();
                 firebase
                   .firestore()
                   .collection('accounts')
@@ -753,8 +676,6 @@ const changeListnameSelected = () => {
                   .then(function () {
                     console.log('List successfully deleted!');
                     const listName = new URLSearchParams(window.location.search).get('list');
-                    console.log(listName);
-                    console.log(newName.replace(/ /g, '-'));
                     let queryParams = new URLSearchParams(window.location.search);
                     queryParams.set('list', newName.replace(/ /g, '-'));
                     history.replaceState(null, null, '?' + queryParams.toString());
@@ -778,47 +699,3 @@ const changeListnameSelected = () => {
       });
   }
 };
-
-// Probando objetos + Firestore:
-class City {
-  constructor(name, state, country) {
-    this.name = name;
-    this.state = state;
-    this.country = country;
-  }
-  toString() {
-    return this.name + ', ' + this.state + ', ' + this.country;
-  }
-}
-
-// Firestore data converter
-var cityConverter = {
-  toFirestore: function (city) {
-    return {
-      name: city.name,
-      state: city.state,
-      country: city.country,
-    };
-  },
-  fromFirestore: function (snapshot, options) {
-    const data = snapshot.data(options);
-    return new City(data.name, data.state, data.country);
-  },
-};
-
-// Set with cityConverter
-firebase.firestore().collection('cities').doc('LA').withConverter(cityConverter).set(new City('Los Angeles', 'CA', 'USA'));
-
-// Yo meto este array en .set(array)
-/* {
-  list: [{ id: '-100', title: 'sin esto no anda', poster: '/aaaa.jpg', release: '0000' }];
-} */
-// Esto me hace pensar que quizas cada pelicula debería haber sido un documento. Y cada lista una colección.
-// Pero como decía que cuanto menos anidaciones más rápido lo hice de la forma que lo hice.
-// Quizas, Documento Pelicula y Colección Lista me hubiera ayudado más a trabajar una ordenada POO.
-// Colección uid, Documento Listas, Colección Lista, Documento Pelicula
-// Colección Listas, Documento uid, Colección Lista, Documento Pelicula. Esta hubiera sido la mejor opción.
-// Y problablemente el documento Pelicula hubiera sido el movieId.
-
-// Ahora que me acuerdo yo hice que Documento Lista porque un Documento es un objeto. En JS se entrega como un objeto.
-// Y la forma en la que está creada en TMDb es un array. Igual se podría haber hecho de la otra forma creo.
